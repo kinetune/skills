@@ -32,7 +32,9 @@ kinetune auth login
 
 ## MCP only
 
-Point any MCP client at `https://kinetune.com/mcp` (Streamable HTTP, OAuth sign-in). Setup for ChatGPT, Claude, Cursor and VS Code is at [kinetune.com/developers](https://kinetune.com/developers#mcp).
+[Add to Cursor](https://cursor.com/install-mcp?name=kinetune&config=eyJ1cmwiOiJodHRwczovL2tpbmV0dW5lLmNvbS9tY3AifQ%3D%3D) · [Add to VS Code](https://vscode.dev/redirect/mcp/install?name=kinetune&config=%7B%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fkinetune.com%2Fmcp%22%7D)
+
+Point any MCP client at `https://kinetune.com/mcp` (Streamable HTTP, OAuth sign-in). It's listed in the [official MCP Registry](https://registry.modelcontextprotocol.io/v0/servers?search=com.kinetune/kinetune) as `com.kinetune/kinetune`. Setup for ChatGPT, Claude, Cursor and VS Code is at [kinetune.com/developers](https://kinetune.com/developers#mcp).
 
 ## What's inside
 
