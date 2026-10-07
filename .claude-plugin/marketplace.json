@@ -1,0 +1,20 @@
+{
+  "name": "kinetune",
+  "owner": {
+    "name": "Kinetune",
+    "email": "support@kinetune.com"
+  },
+  "metadata": {
+    "description": "Kinetune for Claude Code: lyric videos and Spotify Canvas loops from your songs."
+  },
+  "plugins": [
+    {
+      "name": "kinetune",
+      "source": "./",
+      "description": "Make lyric videos and Spotify Canvas loops from your songs with Kinetune.",
+      "version": "0.1.0",
+      "homepage": "https://kinetune.com/developers",
+      "category": "productivity"
+    }
+  ]
+}
