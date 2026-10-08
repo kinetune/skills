@@ -45,10 +45,10 @@ The three are the same operations with the same inputs, so the steps below name 
 Read `get_options` / `kinetune options` for the current categories, background sources, quality tiers, headlines and credit prices. Don't guess ids.
 
 - **Look**:
-  - `{"mode":"existing","id":"look_…"}` reuses a saved Look exactly. It is the cheapest choice. Browse with `list_looks` (`scope`: `official`, `community`, `mine`; filter by `category`).
-  - `{"mode":"new","category":"…","background":{"source":"ai-image","quality":"high"},"direction":"…","feature_artist":"auto","visibility":"private"}` has a new Look designed from the cover.
+  - `{"mode":"existing","id":"look_…"}` reuses a saved Look exactly. It is the cheapest choice. Browse with `list_looks` (`scope`: `official`, `community`, `mine`; filter by `category`; pass the song's `artist_id` to leave out Looks that show another artist).
+  - `{"mode":"new","category":"…","background":{"source":"ai-image","quality":"high"},"direction":"…","visibility":"private"}` has a new Look designed from the cover.
     - `direction` is the user's mood or references in plain words.
-    - `feature_artist` (`auto`, `always`, `never`) decides whether the artist appears. `always` needs artist photos (`add_artist_photos`).
+    - The singer stays out of the background unless asked: `"feature_artist":"always"` shows them. It needs an AI background, artist photos (`add_artist_photos`), `"display":{"cover":false}` (the cover would hide them) and a private Look, which then only serves that artist's songs.
 - **Background sources** for a new Look: `ai-image`, `ai-video` (an AI image brought to life as a loop; costs more), `stock-photo`, `stock-video`. AI sources take a `quality` tier.
 - **`variations`** (1–4): several different New Looks, one video each.
 - **`aspect_ratios`**: any of `"9:16"`, `"16:9"`, `"1:1"`, each its own file. Each extra format adds credits.
@@ -61,7 +61,7 @@ Ask the user only what matters to them, usually the category or mood, the format
 
 - **`source`**: `ai-video` (default, a video model animates an image made from the cover's world), `ai-image`, `stock-photo`, `stock-video`.
 - **`seconds`**: 5–8, default 8. Spotify loops it, so no part of the song is chosen.
-- **Optional**: `style` (`cinematic`, `dreamy`, `abstract`, `surreal`, `retro`, `minimal`, `dark`, `vibrant`, `nature`, `urban`), `direction`, `feature_artist`, `quality` (`standard` or `high`), and `resolution` (`1080p` or `720p`).
+- **Optional**: `style` (`cinematic`, `dreamy`, `abstract`, `surreal`, `retro`, `minimal`, `dark`, `vibrant`, `nature`, `urban`), `direction`, `feature_artist` (`auto`, `always`, `never`; `always` needs artist photos), `quality` (`standard` or `high`), and `resolution` (`1080p` or `720p`).
 - **`variations`**: 1–4 different Canvases.
 
 ## When something goes wrong
