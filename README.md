@@ -1,5 +1,7 @@
 # Kinetune for AI agents
 
+[![smithery badge](https://smithery.ai/badge/kinetune/kinetune)](https://smithery.ai/servers/kinetune/kinetune) [![Kinetune MCP connector](https://glama.ai/mcp/connectors/com.kinetune/kinetune/badges/score.svg)](https://glama.ai/mcp/connectors/com.kinetune/kinetune)
+
 [Kinetune](https://kinetune.com) turns a song into release-ready video: lyric videos with word-synced lyrics and audio-reactive visuals in 9:16, 16:9 and 1:1, and Spotify Canvas loops designed from the song's cover.
 
 This repository teaches AI agents to use it. Ask in plain words, for example *"make a vertical lyric video for Midnight Drive"* or *"give my new single a Canvas"*. The agent finds the song, tells you exactly how many credits it costs, and makes the video only after you say yes.
