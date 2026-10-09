@@ -22,13 +22,18 @@ Creating a video spends the user's credits. Always:
 
 Never create without a quote and the user's agreement, and never pass the CLI's `--yes` on your own. If the user has already agreed to a budget, pass `--max-credits N` so the CLI refuses anything pricier.
 
-## Pick the interface
+## Use the Kinetune tools
 
-1. **MCP tools** if they are connected (`get_account`, `list_songs`, `quote_canvas`…). The MCP server is `https://kinetune.com/mcp`; the user signs in with their Kinetune account.
-2. **The CLI** for local agents and scripts: `kinetune` (`npm install -g @kinetune/cli`, or `npx @kinetune/cli …` without installing). Check sign-in with `kinetune auth status`; if not signed in, ask the user to run `kinetune auth login` (it opens their browser) or set `KINETUNE_API_KEY`. Every command prints JSON when piped. See [references/cli.md](references/cli.md).
-3. **REST** at `https://kinetune.com/api/v1` with `Authorization: Bearer <key>`, only when writing code for the user. The spec is at `https://kinetune.com/api/v1/openapi.json`.
+When Kinetune is installed as a plugin or connector (ChatGPT, Claude, Cursor, VS Code…), its tools are already available: `get_account`, `list_songs`, `quote_canvas` and the rest. Use them and nothing else.
 
-The three are the same operations with the same inputs, so the steps below name the MCP tool and the CLI command together.
+If the tools aren't available in a chat app, or anywhere Kinetune was added as a plugin or connector, the user hasn't connected it yet. Ask them to connect Kinetune and sign in with their Kinetune account; their app shows a Connect or Sign in step for it. Don't install anything, and don't switch to the CLI or the API instead. When unsure, ask them to connect.
+
+Without a plugin or connector, two other ways reach the same operations:
+
+- **The CLI**, when the user works in a local coding agent with a terminal and installed only this skill, or asks for the CLI: `kinetune` (`npm install -g @kinetune/cli`, or `npx @kinetune/cli …` without installing). Check sign-in with `kinetune auth status`; if not signed in, ask the user to run `kinetune auth login` (it opens their browser) or set `KINETUNE_API_KEY`. Every command prints JSON when piped. See [references/cli.md](references/cli.md).
+- **REST** at `https://kinetune.com/api/v1` with `Authorization: Bearer <key>`, only when writing code for the user. The spec is at `https://kinetune.com/api/v1/openapi.json`.
+
+They take the same inputs as the tools, so the steps below name each tool with its CLI command.
 
 ## Make a video
 
