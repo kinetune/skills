@@ -26,6 +26,13 @@ Never create without a quote and the user's agreement, and never pass the CLI's 
 
 When Kinetune is installed as a plugin or connector (ChatGPT, Claude, Cursor, VS Code…), its tools are already available: `get_account`, `list_songs`, `quote_canvas` and the rest. Use them and nothing else.
 
+Apps that draw cards (ChatGPT, Claude and others with MCP Apps) show Kinetune's results as cards, so show rather than describe:
+
+- `show_looks` when the person wants to see or pick Looks; each plays as the real render. Pass `song_id` to preview them with their song. Their pick arrives as a message naming the Look.
+- `show_songs` when they want to see or pick a song.
+- A quote draws as an order ticket with a **Make it** button. Tapping it is their yes: the card creates the videos itself, so don't create them again.
+- `show_video` right after `create_lyric_video` or `create_canvas`, with the ids it returned. The card follows the render and offers the downloads, so you don't need `wait_for_video` then.
+
 If the tools aren't available in a chat app, or anywhere Kinetune was added as a plugin or connector, the user hasn't connected it yet. Ask them to connect Kinetune and sign in with their Kinetune account; their app shows a Connect or Sign in step for it. Don't install anything, and don't switch to the CLI or the API instead. When unsure, ask them to connect.
 
 Without a plugin or connector, two other ways reach the same operations:

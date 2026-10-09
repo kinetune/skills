@@ -1,6 +1,6 @@
 {
   "name": "kinetune",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Make lyric videos and Spotify Canvas loops from your songs with Kinetune. Connects the Kinetune MCP server and teaches your agent to quote the credits and wait for your go before making anything.",
   "author": {
     "name": "Kinetune",
