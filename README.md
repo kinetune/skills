@@ -1,6 +1,11 @@
 # Kinetune for AI agents
 
-[![smithery badge](https://smithery.ai/badge/kinetune/kinetune)](https://smithery.ai/servers/kinetune/kinetune) [![Kinetune MCP connector](https://glama.ai/mcp/connectors/com.kinetune/kinetune/badges/score.svg)](https://glama.ai/mcp/connectors/com.kinetune/kinetune)
+[![MCP Registry](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fregistry.modelcontextprotocol.io%2Fv0%2Fservers%2Fcom.kinetune%252Fkinetune%2Fversions%2Flatest&query=%24.server.version&label=MCP%20Registry&prefix=v&logo=modelcontextprotocol&color=black)](https://registry.modelcontextprotocol.io/v0/servers?search=com.kinetune/kinetune)
+[![Kinetune MCP connector](https://glama.ai/mcp/connectors/com.kinetune/kinetune/badges/score.svg)](https://glama.ai/mcp/connectors/com.kinetune/kinetune)
+[![Smithery](https://img.shields.io/badge/Smithery-kinetune%2Fkinetune-FF5601)](https://smithery.ai/servers/kinetune/kinetune)
+[![mcp.so](https://img.shields.io/badge/mcp.so-Kinetune-black)](https://mcp.so/servers/kinetune)
+[![Cursor Directory](https://img.shields.io/badge/Cursor_Directory-kinetune-black?logo=cursor)](https://cursor.directory/plugins/kinetune)
+[![mcpservers.org](https://img.shields.io/badge/mcpservers.org-Kinetune-black)](https://mcpservers.org/servers/kinetune-com-developers)
 
 [Kinetune](https://kinetune.com) turns a song into release-ready video: lyric videos with word-synced lyrics and audio-reactive visuals in 9:16, 16:9 and 1:1, and Spotify Canvas loops designed from the song's cover.
 
@@ -34,9 +39,9 @@ kinetune auth login
 
 ## MCP only
 
-[Add to Cursor](https://cursor.com/install-mcp?name=kinetune&config=eyJ1cmwiOiJodHRwczovL2tpbmV0dW5lLmNvbS9tY3AifQ%3D%3D) · [Add to VS Code](https://vscode.dev/redirect/mcp/install?name=kinetune&config=%7B%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fkinetune.com%2Fmcp%22%7D)
+[![Add to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/install-mcp?name=kinetune&config=eyJ1cmwiOiJodHRwczovL2tpbmV0dW5lLmNvbS9tY3AifQ%3D%3D) [![Install in VS Code](https://img.shields.io/badge/VS_Code-Install_Kinetune-0098FF?logo=visualstudiocode&logoColor=white)](https://vscode.dev/redirect/mcp/install?name=kinetune&config=%7B%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fkinetune.com%2Fmcp%22%7D)
 
-Point any MCP client at `https://kinetune.com/mcp` (Streamable HTTP, OAuth sign-in). It's listed in the [official MCP Registry](https://registry.modelcontextprotocol.io/v0/servers?search=com.kinetune/kinetune) as `com.kinetune/kinetune`. Setup for ChatGPT, Claude, Cursor and VS Code is at [kinetune.com/developers](https://kinetune.com/developers#mcp).
+Point any MCP client at `https://kinetune.com/mcp` (Streamable HTTP, OAuth sign-in). It's listed in the [official MCP Registry](https://registry.modelcontextprotocol.io/v0/servers?search=com.kinetune/kinetune) as `com.kinetune/kinetune`, and on [Glama](https://glama.ai/mcp/connectors/com.kinetune/kinetune), [Smithery](https://smithery.ai/servers/kinetune/kinetune), [mcp.so](https://mcp.so/servers/kinetune), [Cursor Directory](https://cursor.directory/plugins/kinetune) and [mcpservers.org](https://mcpservers.org/servers/kinetune-com-developers). Setup for ChatGPT, Claude, Cursor and VS Code is at [kinetune.com/developers](https://kinetune.com/developers#mcp).
 
 ## What's inside
 
