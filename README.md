@@ -46,6 +46,8 @@ Point any MCP client at `https://kinetune.com/mcp` (Streamable HTTP, OAuth sign-
 | `skills/kinetune/references/cli.md` | Every CLI command |
 | `.mcp.json` | The Kinetune MCP server, for the Claude Code plugin |
 | `.claude-plugin/` | The Claude Code plugin and marketplace manifests |
+| `.codex-plugin/` | The plugin manifest for ChatGPT and Codex, with its listing details and review test cases |
+| `assets/` | The icon and logo the plugin listings use |
 
 ## Links
 

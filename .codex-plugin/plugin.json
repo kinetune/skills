@@ -1,0 +1,107 @@
+{
+  "name": "kinetune",
+  "version": "1.0.0",
+  "description": "Make lyric videos and Spotify Canvas loops from your songs with Kinetune: find or upload a song, pick a Look, confirm, and get the finished video.",
+  "author": {
+    "name": "Kinetune",
+    "email": "support@kinetune.com",
+    "url": "https://kinetune.com"
+  },
+  "homepage": "https://kinetune.com/developers",
+  "repository": "https://github.com/kinetune/skills",
+  "license": "MIT",
+  "keywords": [
+    "lyric video",
+    "spotify canvas",
+    "music video",
+    "music",
+    "mcp"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "Kinetune",
+    "shortDescription": "Lyric videos & Spotify Canvas",
+    "longDescription": "Kinetune turns a song into release-ready video. Connect your Kinetune account and ask in plain words: find a song in your library, browse Looks (complete lyric-video designs), and make a lyric video in 9:16, 16:9 or 1:1, or a 5-8 second Spotify Canvas loop designed from the song's cover. Before anything is made, Kinetune tells you exactly what it will create and waits for your go. It then renders the video with word-synced lyrics and audio-reactive visuals and returns download links. You can also upload new songs and artist photos, rename or archive them, and manage your Looks.",
+    "developerName": "XplodedThemes",
+    "category": "Creativity",
+    "capabilities": [
+      "Make lyric videos in 9:16, 16:9 and 1:1",
+      "Make Spotify Canvas loops",
+      "Confirms every video before making it",
+      "Upload songs and artist photos",
+      "Browse and reuse Looks"
+    ],
+    "websiteURL": "https://kinetune.com",
+    "supportURL": "https://kinetune.com/developers",
+    "privacyPolicyURL": "https://kinetune.com/privacy",
+    "termsOfServiceURL": "https://kinetune.com/terms",
+    "defaultPrompt": [
+      "Make a vertical lyric video for my latest song",
+      "Make a Spotify Canvas for my new single",
+      "Show me Official Looks for a new release"
+    ],
+    "brandColor": "#16161d",
+    "brandColorDark": "#f2cf2e",
+    "composerIcon": "./assets/icon.png",
+    "logo": "./assets/logo.png"
+  },
+  "extensions": {
+    "com.openai": {
+      "review": {
+        "commerce": false,
+        "test_cases": {
+          "positive": [
+            {
+              "description": "Check the credit balance",
+              "prompt": "What's my Kinetune credit balance?",
+              "tools_triggered": "get_account",
+              "expected_behavior": "Returns the organization name and the available credits; nothing is created or charged."
+            },
+            {
+              "description": "Browse Official Looks in one category",
+              "prompt": "Show me official release Looks on Kinetune.",
+              "tools_triggered": "list_looks",
+              "expected_behavior": "Lists Official Looks in the release category with their names, descriptions and preview images."
+            },
+            {
+              "description": "Quote a lyric video without creating it",
+              "prompt": "Find my song Barefoot in the Tide and tell me what a vertical lyric video costs with the Mint Monolith Debut Look.",
+              "tools_triggered": "list_songs, list_looks, quote_lyric_video",
+              "expected_behavior": "Finds the analyzed song and the Look, returns the exact credits from the quote, and asks before creating anything."
+            },
+            {
+              "description": "Create the quoted lyric video after agreement",
+              "prompt": "Yes, make it.",
+              "tools_triggered": "create_lyric_video, wait_for_video",
+              "expected_behavior": "Creates the video with the same input plus the quote_id from the previous step, waits until it completes, and returns the download link."
+            },
+            {
+              "description": "Quote a Spotify Canvas from a stock video",
+              "prompt": "Quote a Spotify Canvas for Midnight Coffee using a stock video.",
+              "tools_triggered": "list_songs, quote_canvas",
+              "expected_behavior": "Returns the exact credits for an 8-second Canvas with the stock-video source and waits for agreement before creating it."
+            }
+          ],
+          "negative": [
+            {
+              "description": "No such song: ask for it instead of acting",
+              "prompt": "Make a lyric video for my song Golden Hour Highway."
+            },
+            {
+              "description": "Refuses to skip the quote",
+              "prompt": "Make a Canvas for Midnight Coffee right now, don't tell me the price."
+            },
+            {
+              "description": "Unrelated request: no Kinetune tools",
+              "prompt": "Write me a poem about the ocean."
+            }
+          ]
+        }
+      },
+      "publication": {
+        "release_notes": "First release: lyric videos and Spotify Canvas loops from your songs."
+      }
+    }
+  }
+}
