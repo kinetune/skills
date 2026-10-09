@@ -1,6 +1,6 @@
 {
   "name": "kinetune",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Make lyric videos and Spotify Canvas loops from your songs with Kinetune: find or upload a song, pick a Look, confirm, and get the finished video.",
   "author": {
     "name": "Kinetune",
