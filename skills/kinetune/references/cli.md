@@ -44,10 +44,12 @@ Conventions:
 | Command | What it does |
 |---|---|
 | `kinetune songs list [--q …] [--status ready] [--sort newest] [--artist-id …] [--limit N --offset N]` | Songs with cover, duration and analysis status |
-| `kinetune songs create --artist-id … --title "…" --audio FILE_OR_URL --cover-art FILE_OR_URL [--language en]` | Uploads a song, then analysis starts |
+| `kinetune songs create --artist-id … --title "…" --audio FILE_OR_URL --cover-art FILE_OR_URL [--language en] [--lyrics-file FILE]` | Uploads a song, then analysis starts. `--lyrics-file` (text, `.srt`, `.vtt` or `.lrc`) gives it the song's own lyrics |
 | `kinetune songs get SONG_ID` | One song. Wait for `analysis.status` `"ready"` |
 | `kinetune songs analysis SONG_ID` | Word-timed lyrics, tempo, beats, sections and hook |
 | `kinetune songs reanalyze SONG_ID` | Retries a failed analysis |
+| `kinetune songs set-lyrics SONG_ID --lyrics-file FILE` | Gives the song its own lyrics (text, `.srt`, `.vtt` or `.lrc`; `--lyrics "…"` takes them inline): videos spell every word that way, timed from the audio |
+| `kinetune songs clear-lyrics SONG_ID` | Goes back to the transcribed words |
 | `kinetune songs rename SONG_ID --title "…"` | Renames a song |
 | `kinetune songs archive SONG_ID` | Removes a song. Its videos stay |
 

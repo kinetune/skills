@@ -46,11 +46,22 @@ They take the same inputs as the tools, so the steps below name each tool with i
 
 1. **Check the account**: `get_account` / `kinetune account`. Note the credit balance.
 2. **Find the song**: `list_songs` with `q` (part of the title or artist) / `kinetune songs list --q "…"`. Only songs with `analysis.status` `"ready"` can be used. Lists return 50 per page; page with `limit`/`offset` rather than listing everything.
-3. **No song yet?** Find or create the artist (`list_artists` / `create_artist`), then upload: `create_song` / `kinetune songs create --artist-id … --title … --audio ./song.wav --cover-art ./cover.jpg`. Audio is MP3, WAV or M4A up to 250 MB; the cover is a square JPEG or PNG, 1000–6000 px (3000×3000 recommended). Analysis (lyrics, beats, sections) takes about a minute: poll `get_song` until `analysis.status` is `"ready"`. If it fails, `reanalyze_song`.
+3. **No song yet?** Find or create the artist (`list_artists` / `create_artist`), then upload: `create_song` / `kinetune songs create --artist-id … --title … --audio ./song.wav --cover-art ./cover.jpg`. Audio is MP3, WAV or M4A up to 250 MB; the cover is a square JPEG or PNG, 1000–6000 px (3000×3000 recommended). Analysis (lyrics, beats, sections) takes about a minute: poll `get_song` until `analysis.status` is `"ready"`. If it fails, `reanalyze_song`. If the user has the song's lyrics, pass them too (see [The song's own lyrics](#the-songs-own-lyrics)).
 4. **Choose what to make** (below), then **quote** it and tell the user the credits.
 5. **Create** with the same input plus `quote_id`: `create_lyric_video` / `create_canvas`, or `kinetune create … --quote-id …`. It returns the video ids at once.
 6. **Wait**: `wait_for_video` (call again while `status` is `queued` or `processing`) / `kinetune videos wait VIDEO_ID`.
-7. **Deliver**: a completed video has one output per format with `download_url` (full quality), `web_url` (720p) and `poster_url`, signed for 7 days. Share the links, or `kinetune videos download VIDEO_ID --out ./videos`.
+7. **Deliver**: a completed video has one output per format with `download_url` (full quality), `web_url` (720p) and `poster_url`, signed for 7 days. Share the links, or `kinetune videos download VIDEO_ID --out ./videos`. A lyric video's poster is a frame with one whole lyric line on screen, made for the thumbnail where the user posts it; `poster_seconds` says where in the file it was cut, for platforms that take a cover frame offset instead of an image (TikTok).
+
+## The song's own lyrics
+
+Songs are transcribed to time every word, and a transcription can mishear one. When the user has the song's lyrics (pasted, Suno's lyrics, or an `.srt`, `.vtt` or `.lrc` file), give them to Kinetune: its videos then spell every word their way and break lines where they do, still timed from the audio.
+
+- With the upload: `lyrics` on `create_song` / `kinetune songs create … --lyrics-file ./song.txt`.
+- Later, or to fix them: `set_song_lyrics` / `kinetune songs set-lyrics SONG_ID --lyrics-file ./song.srt`. `clear_song_lyrics` / `kinetune songs clear-lyrics SONG_ID` goes back to the transcribed words.
+- Pass the text as the user has it: section tags like `[Chorus]` are fine, and a part sung again can be written once.
+- `get_song` → `analysis.lyrics.status`: `transcribed` (as heard), `checked` (theirs, timed from the audio; `corrected` and `added` say what changed), `waiting` (checked once the analysis finishes) or `mismatch`.
+- Lyrics that don't match what's sung, or cover only part of the song, are refused with the reason and the song stays as it was: tell the user what it says.
+- Videos made from then on use the lyrics. Videos already made stay as they are; making one again picks them up.
 
 ## Choosing a lyric video
 
