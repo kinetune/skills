@@ -1,6 +1,6 @@
 {
   "name": "kinetune",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Make lyric videos and Spotify Canvas loops from your songs with Kinetune: find or upload a song, pick a Look, confirm, and get the finished video.",
   "author": {
     "name": "Kinetune",
@@ -23,7 +23,7 @@
     "displayName": "Kinetune",
     "shortDescription": "Lyric videos & Spotify Canvas",
     "longDescription": "Kinetune turns a song into release-ready video. Connect your Kinetune account and ask in plain words: find a song in your library, browse Looks (complete lyric-video designs), and make a lyric video in 9:16, 16:9 or 1:1, or a 5-8 second Spotify Canvas loop designed from the song's cover. Before anything is made, Kinetune tells you exactly what it will create and waits for your go. It then renders the video with word-synced lyrics and audio-reactive visuals and returns download links. You can also upload new songs and artist photos, rename or archive them, and manage your Looks.",
-    "developerName": "XplodedThemes",
+    "developerName": "Prismosoft",
     "category": "Creativity",
     "capabilities": [
       "Make lyric videos in 9:16, 16:9 and 1:1",
