@@ -79,8 +79,8 @@ Conventions:
 | Command | What it does |
 |---|---|
 | `kinetune videos list [--song-id …] [--type lyric-video\|canvas]` | Videos, newest first |
-| `kinetune videos get VIDEO_ID` | Status, progress, credits and, when completed, the download links |
-| `kinetune videos wait VIDEO_ID [--timeout 1800]` | Waits until completed, failed or cancelled |
+| `kinetune videos get VIDEO_ID` | Status, progress, credits and, when completed, the download links; while it waits, `queue` says why |
+| `kinetune videos wait VIDEO_ID [--timeout 1800]` | Waits until completed, failed or cancelled, showing its progress or why it waits (its place in line, or busy machines) |
 | `kinetune videos download VIDEO_ID [--out DIR] [--format 9:16] [--web]` | Downloads the files, one per format. `--web` gets the 720p copies |
 | `kinetune videos cancel VIDEO_ID` | Stops a queued or processing video and releases its credits |
 | `kinetune videos retry VIDEO_ID` | Makes a finished, failed or cancelled video again. This is a new charge, though its Look and media are reused |
