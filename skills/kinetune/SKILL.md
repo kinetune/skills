@@ -94,6 +94,7 @@ Ask the user only what matters to them, usually the category or mood, the format
 - **`cancel_video`** stops a queued or processing video and releases its credits.
 - **Not enough credits**: tell the user their balance and the quote. Plans and credit packs are at https://kinetune.com/pricing. Don't shrink the request without asking.
 - **`plan_required`** (402): the workspace has no active plan, so it can't upload or make videos. Tell the user to choose one in the app; don't retry.
+- **`storage_full`** (402): the plan's storage is full (`get_account`: `storage`). Tell the user; deleting videos (`delete_video`) or archiving songs (`archive_song`) they no longer need frees space at once, or they can move up a plan. Ask before deleting anything.
 - **Workspaces**: the app calls them workspaces; tools and fields say organization (`list_organizations`, `create_organization` with a `type`, `update_organization`). One connection acts for one workspace: to use another, the user reconnects and picks it.
 - **CLI exit codes**:
   - `0`: done
