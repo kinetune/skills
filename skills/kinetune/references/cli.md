@@ -14,9 +14,9 @@ Conventions:
 
 | Command | What it does |
 |---|---|
-| `kinetune auth login` | Opens the browser to sign in and pick the organization. Add `--no-browser` to print the URL instead |
-| `kinetune auth login --api-key kt_live_…` | Stores an organization API key |
-| `kinetune auth status` | The organization, how you are signed in, and the credit balance |
+| `kinetune auth login` | Opens the browser to sign in and pick the workspace (a new account sets it up and chooses a plan first). Add `--no-browser` to print the URL instead |
+| `kinetune auth login --api-key kt_live_…` | Stores a workspace API key |
+| `kinetune auth status` | The workspace, its plan, how you are signed in, and the credit balance |
 | `kinetune auth token` | Prints the bearer token, for curl |
 | `kinetune auth logout` | Forgets the credentials |
 
@@ -24,7 +24,10 @@ Conventions:
 
 | Command | What it does |
 |---|---|
-| `kinetune account` | The organization and its credit balance |
+| `kinetune account` | The workspace (`organization`, with its `type`), its plan (`active` says whether it can upload and make videos) and its credit balance |
+| `kinetune organizations list` | Your workspaces, with type and role; `current` is the one you act for |
+| `kinetune organizations create --name "…" --type artist\|label` | A new workspace you own: an artist's (one artist) or a label's (a roster). It starts with no plan |
+| `kinetune organizations update [--name "…"] [--type artist\|label]` | Renames this workspace or switches its type (an artist workspace holds one artist) |
 | `kinetune options` | Video types, Look categories, background sources, formats, headlines and the credit prices |
 
 ## Artists
@@ -44,7 +47,7 @@ Conventions:
 | Command | What it does |
 |---|---|
 | `kinetune songs list [--q …] [--status ready] [--sort newest] [--artist-id …] [--limit N --offset N]` | Songs with cover, duration and analysis status |
-| `kinetune songs create --artist-id … --title "…" --audio FILE_OR_URL --cover-art FILE_OR_URL [--language en] [--lyrics-file FILE]` | Uploads a song, then analysis starts. `--lyrics-file` (text, `.srt`, `.vtt` or `.lrc`) gives it the song's own lyrics |
+| `kinetune songs create [--artist-id …] --title "…" --audio FILE_OR_URL --cover-art FILE_OR_URL [--language en] [--lyrics-file FILE]` | Uploads a song, then analysis starts. `--lyrics-file` (text, `.srt`, `.vtt` or `.lrc`) gives it the song's own lyrics |
 | `kinetune songs get SONG_ID` | One song. Wait for `analysis.status` `"ready"` |
 | `kinetune songs analysis SONG_ID` | Word-timed lyrics, tempo, beats, sections and hook |
 | `kinetune songs reanalyze SONG_ID` | Retries a failed analysis |
