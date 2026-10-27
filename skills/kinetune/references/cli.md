@@ -88,3 +88,9 @@ Conventions:
 | `kinetune videos cancel VIDEO_ID` | Stops a queued or processing video and releases its credits |
 | `kinetune videos retry VIDEO_ID` | Makes a finished, failed or cancelled video again. This is a new charge, though its Look and media are reused |
 | `kinetune videos delete VIDEO_ID` | Deletes a finished video and its files |
+
+## Ideas
+
+| Command | What it does |
+|---|---|
+| `kinetune ideas suggest --title "…" [--body "…"] [--area lyric-video\|canvas\|music-video\|everything]` | Suggests a feature on the app's Community board under your name, for others to vote on (5 a day). Ask the user first |
