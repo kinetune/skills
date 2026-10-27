@@ -87,6 +87,10 @@ Ask the user only what matters to them, usually the category or mood, the format
 - **Optional**: `style` (`cinematic`, `dreamy`, `abstract`, `surreal`, `retro`, `minimal`, `dark`, `vibrant`, `nature`, `urban`), `direction`, `feature_artist` (`auto`, `always`, `never`; `always` needs artist photos), `quality` (`standard` or `high`), and `resolution` (`1080p` or `720p`).
 - **`variations`**: 1–4 different Canvases.
 
+## When they wish Kinetune did something
+
+If the user asks for something Kinetune can't do yet ("I wish it could…"), offer to suggest it as an idea: `suggest_idea` (`kinetune ideas suggest --title "…" [--body "…"] [--area lyric-video|canvas|music-video|everything]`). It goes on the Community board in the app under their name, where others vote on it, and they hear by email when it ships. Write the title in their words, in one line, with how they would use it in the body. Leave out private links and contact details, and ask before posting. At most 5 a day.
+
 ## When something goes wrong
 
 - **A failed video returns its credits.**
