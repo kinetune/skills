@@ -1,6 +1,6 @@
 {
   "name": "kinetune",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Make lyric videos, Spotify Canvas loops and AI music videos from your songs with Kinetune: find or upload a song, pick a Look, confirm, and get the finished video.",
   "author": {
     "name": "Kinetune",
@@ -102,7 +102,7 @@
         }
       },
       "publication": {
-        "release_notes": "AI music videos: the artist performs the song, lip-synced, from two photos, with a brief, the artist's kit and the director's treatment, from 15 seconds to 10 minutes."
+        "release_notes": "AI music videos edited like an official video: shots cut between the song's lines, joined with a cut or a transition the director picks (dissolve, dip to black, flash, whip), or carried on as continuous takes."
       }
     }
   }
