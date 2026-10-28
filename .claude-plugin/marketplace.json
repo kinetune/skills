@@ -12,7 +12,7 @@
       "name": "kinetune",
       "source": "./",
       "description": "Make lyric videos, Spotify Canvas loops and AI music videos from your songs with Kinetune.",
-      "version": "0.1.8",
+      "version": "0.1.9",
       "homepage": "https://kinetune.com/developers",
       "category": "productivity"
     }

@@ -77,7 +77,7 @@ Read `get_options` / `kinetune options` for the current categories, background s
 - **`variations`** (1–4): several different New Looks, one video each.
 - **`aspect_ratios`**: any of `"9:16"`, `"16:9"`, `"1:1"`, each its own file. Each extra format adds credits.
 - **`display`**: which elements show (`title`, `artist`, `cover`, `lyrics`, `badges`, `headline`) and their sizes.
-- **`trim`**: render only part of the song (at least 8 seconds).
+- **`trim`**: render only part of the song (at least 8 seconds). Take it from the song's **parts** (`get_song_analysis` / `kinetune songs analysis SONG_ID`): each section (Verse 1, Chorus 1…), clips of about 15 seconds cut between the lines of long ones, and each verse with its chorus, every one starting and ending between lines so no word is cut. Pass a part's `start` and `end` as `start_seconds` and `end_seconds`; `default_part` is the one the app starts on (the sung part nearest 15 seconds, the cheapest clip). Suggest a part by its label and first words ("Chorus 1, “Didn't I tell you…”, 15 s") rather than raw times.
 
 Ask the user only what matters to them, usually the category or mood, the formats, and whether to reuse a Look. Default the rest.
 
@@ -90,7 +90,7 @@ Ask the user only what matters to them, usually the category or mood, the format
 
 ## Music videos
 
-The song's artist performs it, lip-synced, in a video made by Kinetune's model **One Take** (one continuous take) from the artist's photos. A music video is one file in one format (`aspect_ratio`), of the whole song or a `trim` of 1 to 10 minutes, priced by its length. `quality` is one of the qualities `get_options` lists for the model: `768p` by default, and `1080p` is the same video sharper for about twice the credits. `get_options` lists each model with its kinds, looks, formats, lengths and kit limits.
+The song's artist performs it, lip-synced, in a video made by Kinetune's model **One Take** (one continuous take) from the artist's photos. A music video is one file in one format (`aspect_ratio`), of the whole song or a `trim` of 15 seconds to 10 minutes (best a part from `get_song_analysis` with `min_seconds` 15), priced by its length. `quality` is one of the qualities `get_options` lists for the model: `768p` by default, and `1080p` is the same video sharper for about twice the credits. `get_options` lists each model with its kinds, looks, formats, lengths and kit limits.
 
 It is planned before it is made, and planning is free:
 
