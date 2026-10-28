@@ -9,7 +9,7 @@ Kinetune turns a song into release-ready video:
 
 - **Lyric videos**: word-synced lyrics over a designed background with audio-reactive visuals, in 9:16 (vertical), 16:9 (wide) and 1:1 (square).
 - **Spotify Canvas**: a 5–8 second vertical loop designed from the song's cover, uploaded by the artist in Spotify for Artists.
-- **AI music videos**: the song's artist performs it, lip-synced, in a video made from their photos, from 1 to 10 minutes. See [Music videos](#music-videos).
+- **AI music videos**: the song's artist performs it, lip-synced, in a video made from their photos, from 15 seconds to 10 minutes. See [Music videos](#music-videos).
 
 Lyric videos and Canvases use a **Look**, a complete reusable design. Reuse a saved Look, or have a new one designed from the song's cover art.
 

@@ -47,7 +47,7 @@ Point any MCP client at `https://kinetune.com/mcp` (Streamable HTTP, OAuth sign-
 
 | Path | What it is |
 |---|---|
-| `skills/kinetune/SKILL.md` | How to make lyric videos and Canvases, and the rule to quote before spending credits |
+| `skills/kinetune/SKILL.md` | How to make lyric videos, music videos and Canvases, and the rule to quote before spending credits |
 | `skills/kinetune/references/cli.md` | Every CLI command |
 | `.mcp.json` | The Kinetune MCP server, for the Claude Code plugin |
 | `.claude-plugin/` | The Claude Code plugin and marketplace manifests |
