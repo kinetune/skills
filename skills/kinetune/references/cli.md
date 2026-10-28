@@ -77,11 +77,32 @@ Conventions:
 
 `kinetune create …` without `--quote-id` quotes first, shows the credits and asks. Use `--max-credits N` to refuse anything pricier. Pass `--yes` only when the user has agreed to that amount.
 
+## Music videos
+
+| Command | What it does |
+|---|---|
+| `kinetune plan music-video --song-id … [--category …] [--aspect-ratio 9:16] [--trim '{"start_seconds":32,"end_seconds":96}'] [--direction "…"]` | The director's plan, free (about a minute) |
+| `kinetune plan music-video --song-id … --revise '{"plan_id":"plan_…","note":"…"}'` | Rewrites a plan from a note (the next draft), free |
+| `kinetune plans get PLAN_ID` | A plan made earlier |
+| `kinetune quote music-video --song-id … --plan-id … [--quality 768p]` | Exact credits for the planned video, in one of the qualities `kinetune options` lists for the model |
+| `kinetune create music-video …same flags… --quote-id …` | Makes the music video the quote priced |
+| `kinetune lookbook design --song-id … [--direction "…"]` | Design the shoot (optional, free): the director's outfits, places and props, not drawn yet |
+| `kinetune lookbook render LOOKBOOK_ID --credits N` | Draws the pieces for the credits the lookbook shows (`price.draw.credits`). Ask the user first |
+
+## Kit
+
+| Command | What it does |
+|---|---|
+| `kinetune kit list [--artist-id …] [--kind outfit\|place\|prop]` | The workspace's places and props, and an artist's outfits |
+| `kinetune kit add --kind outfit\|place\|prop --name "…" [--artist-id …] [--file ./piece.jpg --rights-confirmed \| --stock-id …] [--crop '{"x":0.1,"y":0.1,"w":0.8,"h":0.8}']` | Adds a piece, named with an @handle |
+| `kinetune kit update KIT_ID [--name "…"] [--handle …] [--crop '…']` | Renames it, changes its handle or crops it again |
+| `kinetune kit delete KIT_ID` | Removes it |
+
 ## Videos
 
 | Command | What it does |
 |---|---|
-| `kinetune videos list [--song-id …] [--type lyric-video\|canvas]` | Videos, newest first |
+| `kinetune videos list [--song-id …] [--type lyric-video\|canvas\|music-video]` | Videos, newest first |
 | `kinetune videos get VIDEO_ID` | Status, progress, credits and, when completed, the download links; while it waits, `queue` says why |
 | `kinetune videos wait VIDEO_ID [--timeout 1800]` | Waits until completed, failed or cancelled, showing its progress or why it waits (its place in line, or busy machines) |
 | `kinetune videos download VIDEO_ID [--out DIR] [--format 9:16] [--web]` | Downloads the files, one per format. `--web` gets the 720p copies |
