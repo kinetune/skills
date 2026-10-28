@@ -81,7 +81,7 @@ Conventions:
 
 | Command | What it does |
 |---|---|
-| `kinetune plan music-video --song-id … [--category …] [--aspect-ratio 9:16] [--trim '{"start_seconds":32,"end_seconds":96}'] [--direction "…"]` | The director's plan, free (about a minute) |
+| `kinetune plan music-video --song-id … [--category …] [--aspect-ratio 9:16] [--trim '{"start_seconds":32,"end_seconds":96}'] [--direction "…"] [--takes cuts\|continuous]` | The director's plan, free (about a minute): its shots and how each comes in (a cut or a transition) |
 | `kinetune plan music-video --song-id … --revise '{"plan_id":"plan_…","note":"…"}'` | Rewrites a plan from a note (the next draft), free |
 | `kinetune plans get PLAN_ID` | A plan made earlier |
 | `kinetune quote music-video --song-id … --plan-id … [--quality 768p]` | Exact credits for the planned video, in one of the qualities `kinetune options` lists for the model |

@@ -90,14 +90,14 @@ Ask the user only what matters to them, usually the category or mood, the format
 
 ## Music videos
 
-The song's artist performs it, lip-synced, in a video made by **MiniMax H3 Max** (model id `one-take`, one continuous take) from the artist's photos. A music video is one file in one format (`aspect_ratio`), of the whole song or a `trim` of 15 seconds to 10 minutes (best a part from `get_song_analysis` with `min_seconds` 15), priced by its length. `quality` is one of the qualities `get_options` lists for the model: `768p` by default, and `1080p` is the same video sharper for about twice the credits. `get_options` lists each model with its kinds, looks, formats, lengths and kit limits.
+The song's artist performs it, lip-synced, in a video made by **MiniMax H3 Max** (model id `one-take`) from the artist's photos, in shots cut between the song's lines and edited like an official video. A music video is one file in one format (`aspect_ratio`), of the whole song or a `trim` of 15 seconds to 10 minutes (best a part from `get_song_analysis` with `min_seconds` 15), priced by its length. `quality` is one of the qualities `get_options` lists for the model: `768p` by default, and `1080p` is the same video sharper for about twice the credits. `get_options` lists each model with its kinds, looks, formats, lengths and kit limits.
 
 It is planned before it is made, and planning is free:
 
 1. **Photos**: `list_artist_photos` / `kinetune artists photos list ARTIST_ID`. No photos: ask the user for a few (a sharp face with the mouth visible) and add them with `add_artist_photos`. A photo meant for one video only goes up with `hidden` true.
-2. **Plan**: `plan_music_video` / `kinetune plan music-video --song-id … [--category …] [--aspect-ratio 9:16] [--trim '{"start_seconds":32,"end_seconds":96}'] [--direction "…"]`. It takes about a minute and returns the director's concept and one shot per clip of about 15 seconds (time, lyrics, summary). Show it to the user.
+2. **Plan**: `plan_music_video` / `kinetune plan music-video --song-id … [--category …] [--aspect-ratio 9:16] [--trim '{"start_seconds":32,"end_seconds":96}'] [--direction "…"]`. It takes about a minute and returns the director's concept and its shots (time, lyrics, summary, and `transition`: how each comes in, a cut or the director's dissolve, dip to black, flash or whip). Show it to the user. `takes` is `cuts` (the default, edited shots) or `continuous` (the director may carry a shot on into the next through a picture drawn at the join, priced per picture). For transitions, or none, say so in `direction` ("only hard cuts", "dissolve between scenes").
 3. **Revise** until they like it: `plan_music_video` with `revise` `{plan_id, note}`.
-4. **Quote** with `song_id` and `plan_id`: `quote_music_video` / `kinetune quote music-video --song-id … --plan-id …`. Tell the user the credits and that it takes about 5 minutes per minute of song.
+4. **Quote** with `song_id` and `plan_id`: `quote_music_video` / `kinetune quote music-video --song-id … --plan-id …`. Tell the user the credits and that it usually takes 5 to 20 minutes.
 5. **Create** after their go: `create_music_video` / `kinetune create music-video --song-id … --plan-id … --quote-id …`. Check back with `get_video` rather than waiting in one call.
 
 `cast` (`face_photo_id`, `outfit_photo_id`) picks the two photos the artist is kept from; left out, the director picks.
