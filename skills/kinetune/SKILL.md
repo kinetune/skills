@@ -1,6 +1,6 @@
 ---
 name: kinetune
-description: Make lyric videos (9:16, 16:9, 1:1) and Spotify Canvas loops from a user's songs with Kinetune, through its MCP tools or the `kinetune` CLI. Use when the user wants a lyric video, a Spotify Canvas, a visualizer or promo video for a song, wants to upload a song or artist photos to Kinetune, browse Looks, check their credits, or mentions Kinetune.
+description: Make lyric videos (9:16, 16:9, 1:1), Spotify Canvas loops and AI music videos from a user's songs with Kinetune, through its MCP tools or the `kinetune` CLI. Use when the user wants a lyric video, a Spotify Canvas, a music video, a visualizer or promo video for a song, wants to set up an artist's kit (outfits, places, props), wants to upload a song or artist photos to Kinetune, browse Looks, check their credits, or mentions Kinetune.
 ---
 
 # Kinetune
@@ -9,14 +9,15 @@ Kinetune turns a song into release-ready video:
 
 - **Lyric videos**: word-synced lyrics over a designed background with audio-reactive visuals, in 9:16 (vertical), 16:9 (wide) and 1:1 (square).
 - **Spotify Canvas**: a 5–8 second vertical loop designed from the song's cover, uploaded by the artist in Spotify for Artists.
+- **AI music videos**: the song's artist performs it, lip-synced, in a video made from their photos, from 1 to 10 minutes. See [Music videos](#music-videos).
 
-Every video uses a **Look**, a complete reusable design. Reuse a saved Look, or have a new one designed from the song's cover art.
+Lyric videos and Canvases use a **Look**, a complete reusable design. Reuse a saved Look, or have a new one designed from the song's cover art.
 
 ## The one rule: quote, tell, wait for the go
 
 Creating a video spends the user's credits. Always:
 
-1. Quote the exact request (`quote_lyric_video` / `quote_canvas`, or `kinetune quote …`).
+1. Quote the exact request (`quote_lyric_video` / `quote_canvas` / `quote_music_video`, or `kinetune quote …`).
 2. Tell the user the credits, what they get, and their balance.
 3. Create only after they say yes, with the **same** input plus the `quote_id`. A quote is valid for 30 minutes.
 
@@ -31,7 +32,7 @@ Apps that draw cards (ChatGPT, Claude and others with MCP Apps) show Kinetune's 
 - `show_looks` when the person wants to see or pick Looks; each plays as the real render. Pass `song_id` to preview them with their song. Their pick arrives as a message naming the Look.
 - `show_songs` when they want to see or pick a song.
 - A quote draws as an order ticket with a **Make it** button. Tapping it is their yes: the card creates the videos itself, so don't create them again.
-- `show_video` right after `create_lyric_video` or `create_canvas`, with the ids it returned. The card follows the render and offers the downloads, so you don't need `wait_for_video` then.
+- `show_video` right after `create_lyric_video`, `create_canvas` or `create_music_video`, with the ids it returned. The card follows the render and offers the downloads, so you don't need `wait_for_video` then.
 
 If the tools aren't available in a chat app, or anywhere Kinetune was added as a plugin or connector, the user hasn't connected it yet. Ask them to connect Kinetune and sign in with their Kinetune account; their app shows a Connect or Sign in step for it. Don't install anything, and don't switch to the CLI or the API instead. When unsure, ask them to connect.
 
@@ -87,6 +88,38 @@ Ask the user only what matters to them, usually the category or mood, the format
 - **Optional**: `style` (`cinematic`, `dreamy`, `abstract`, `surreal`, `retro`, `minimal`, `dark`, `vibrant`, `nature`, `urban`), `direction`, `feature_artist` (`auto`, `always`, `never`; `always` needs artist photos), `quality` (`standard` or `high`), and `resolution` (`1080p` or `720p`).
 - **`variations`**: 1–4 different Canvases.
 
+## Music videos
+
+The song's artist performs it, lip-synced, in a video made by Kinetune's model **One Take** (one continuous take) from the artist's photos. A music video is one file in one format (`aspect_ratio`), of the whole song or a `trim` of 1 to 10 minutes, priced by its length. `quality` is one of the qualities `get_options` lists for the model: `768p` by default, and `1080p` is the same video sharper for about twice the credits. `get_options` lists each model with its kinds, looks, formats, lengths and kit limits.
+
+It is planned before it is made, and planning is free:
+
+1. **Photos**: `list_artist_photos` / `kinetune artists photos list ARTIST_ID`. No photos: ask the user for a few (a sharp face with the mouth visible) and add them with `add_artist_photos`. A photo meant for one video only goes up with `hidden` true.
+2. **Plan**: `plan_music_video` / `kinetune plan music-video --song-id … [--category …] [--aspect-ratio 9:16] [--trim '{"start_seconds":32,"end_seconds":96}'] [--direction "…"]`. It takes about a minute and returns the director's concept and one shot per clip of about 15 seconds (time, lyrics, summary). Show it to the user.
+3. **Revise** until they like it: `plan_music_video` with `revise` `{plan_id, note}`.
+4. **Quote** with `song_id` and `plan_id`: `quote_music_video` / `kinetune quote music-video --song-id … --plan-id …`. Tell the user the credits and that it takes about 5 minutes per minute of song.
+5. **Create** after their go: `create_music_video` / `kinetune create music-video --song-id … --plan-id … --quote-id …`. Check back with `get_video` rather than waiting in one call.
+
+`cast` (`face_photo_id`, `outfit_photo_id`) picks the two photos the artist is kept from; left out, the director picks.
+
+### The artist kit and @mentions
+
+The kit holds what music videos are made from: each artist's **outfits**, and the workspace's **places** and **props**, shared by every artist. Each piece has an `@handle`.
+
+- `list_kit` / `kinetune kit list [--artist-id …]`.
+- `add_kit_piece` / `kinetune kit add --kind outfit|place|prop --name "…" …` from an image (`file`, or `file_url` with `rights_confirmed`) or a stock photo (`stock_id` from `search_stock`), with an optional `crop` (fractions of the image: `{"x","y","w","h"}`, at least 256 px kept). An outfit needs its `artist_id`.
+- `update_kit_piece` renames it, changes its handle or description, or crops it again; `delete_kit_piece` removes it.
+
+A piece mentioned in `direction` ("Nina in the @blue-set on the @rooftop") is used exactly as it is, and the director designs the rest. An unknown handle is refused with its name: offer to add it to the kit. For places the brief leaves open, `scenes` `invent` (default) has the director imagine them, and `stock` has it find real empty places and put the artist in them (`swap_music_video_place` changes one place's photo).
+
+### Design the shoot (optional)
+
+Before the plan, `design_music_video_shoot` / `kinetune lookbook design …` (free, about a minute) has the director design what the brief leaves open: outfits drawn on the artist, empty places, props. Show its pieces and `price.draw.credits`; drawing them costs those credits, so draw (`render_music_video_lookbook` with those credits) only after the user's go. They keep or redraw pieces (each redraw is priced: ask first), then `plan_music_video` with `lookbook_id`.
+
+### Backing vocals
+
+Words in (parentheses) in the song's lyrics are the backing vocals': they are sung off camera, and the artist doesn't lip-sync them. To mark them, set the song's lyrics with the parentheses (see [The song's own lyrics](#the-songs-own-lyrics)).
+
 ## When they wish Kinetune did something
 
 If the user asks for something Kinetune can't do yet ("I wish it could…"), offer to suggest it as an idea: `suggest_idea` (`kinetune ideas suggest --title "…" [--body "…"] [--area lyric-video|canvas|music-video|everything]`). It goes on the Community board in the app under their name, where others vote on it, and they hear by email when it ships. Write the title in their words, in one line, with how they would use it in the body. Leave out private links and contact details, and ask before posting. At most 5 a day.
@@ -96,6 +129,7 @@ If the user asks for something Kinetune can't do yet ("I wish it could…"), off
 - **A failed video returns its credits.**
 - **`retry_video`** makes a video again. That is a new charge, so ask first, but it reuses the Look and media so nothing already made is paid for twice.
 - **`cancel_video`** stops a queued or processing video and releases its credits.
+- **"plan it again"**: a music video plan whose photo or kit piece was deleted, or made with choices no longer offered, can't be quoted. Plan it again.
 - **Not enough credits**: tell the user their balance and the quote. Plans and credit packs are at https://kinetune.com/pricing. Don't shrink the request without asking.
 - **`plan_required`** (402): the workspace has no active plan, so it can't upload or make videos. Tell the user to choose one in the app; don't retry.
 - **`storage_full`** (402): the plan's storage is full (`get_account`: `storage`). Tell the user; deleting videos (`delete_video`) or archiving songs (`archive_song`) they no longer need frees space at once, or they can move up a plan. Ask before deleting anything.
