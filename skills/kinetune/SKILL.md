@@ -90,7 +90,7 @@ Ask the user only what matters to them, usually the category or mood, the format
 
 ## Music videos
 
-The song's artist performs it, lip-synced, in a video made by Kinetune's model **One Take** (one continuous take) from the artist's photos. A music video is one file in one format (`aspect_ratio`), of the whole song or a `trim` of 15 seconds to 10 minutes (best a part from `get_song_analysis` with `min_seconds` 15), priced by its length. `quality` is one of the qualities `get_options` lists for the model: `768p` by default, and `1080p` is the same video sharper for about twice the credits. `get_options` lists each model with its kinds, looks, formats, lengths and kit limits.
+The song's artist performs it, lip-synced, in a video made by **MiniMax H3 Max** (model id `one-take`, one continuous take) from the artist's photos. A music video is one file in one format (`aspect_ratio`), of the whole song or a `trim` of 15 seconds to 10 minutes (best a part from `get_song_analysis` with `min_seconds` 15), priced by its length. `quality` is one of the qualities `get_options` lists for the model: `768p` by default, and `1080p` is the same video sharper for about twice the credits. `get_options` lists each model with its kinds, looks, formats, lengths and kit limits.
 
 It is planned before it is made, and planning is free:
 
