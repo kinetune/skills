@@ -86,7 +86,7 @@ Conventions:
 | `kinetune plans get PLAN_ID` | A plan made earlier |
 | `kinetune quote music-video --song-id … --plan-id … [--quality 768p]` | Exact credits for the planned video, in one of the qualities `kinetune options` lists for the model |
 | `kinetune create music-video …same flags… --quote-id …` | Makes the music video the quote priced |
-| `kinetune lookbook design --song-id … [--direction "…"]` | Design the shoot (optional, free): the director's outfits, places and props, not drawn yet |
+| `kinetune lookbook design --song-id … [--direction "…"]` | A lookbook (optional, free, before the shot list): the director's outfits, places and props, not drawn yet |
 | `kinetune lookbook render LOOKBOOK_ID --credits N` | Draws the pieces for the credits the lookbook shows (`price.draw.credits`). Ask the user first |
 
 ## Kit
