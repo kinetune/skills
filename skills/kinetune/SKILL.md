@@ -95,7 +95,7 @@ The song's artist performs it, lip-synced, in a video made by **MiniMax H3 Max**
 It is planned before it is made, and planning is free:
 
 1. **Photos**: `list_artist_photos` / `kinetune artists photos list ARTIST_ID`. No photos: ask the user for a few (a sharp face with the mouth visible) and add them with `add_artist_photos`. A photo meant for one video only goes up with `hidden` true.
-2. **Plan**: `plan_music_video` / `kinetune plan music-video --song-id … [--category …] [--aspect-ratio 9:16] [--trim '{"start_seconds":32,"end_seconds":96}'] [--direction "…"]`. It takes about a minute and returns the director's concept and its shots (time, lyrics, summary, and `transition`: how each comes in, a cut or the director's dissolve, dip to black, flash or whip). Show it to the user. `takes` is `cuts` (the default, edited shots) or `continuous` (the director may carry a shot on into the next through a picture drawn at the join, priced per picture). For transitions, or none, say so in `direction` ("only hard cuts", "dissolve between scenes").
+2. **Shot list**: `plan_music_video` / `kinetune plan music-video --song-id … [--category …] [--aspect-ratio 9:16] [--trim '{"start_seconds":32,"end_seconds":96}'] [--direction "…"]`. It takes about a minute and returns the director's concept and its shots (time, lyrics, summary, and `transition`: how each comes in, a cut or the director's dissolve, dip to black, flash or whip). Show it to the user. `takes` is `cuts` (the default, edited shots) or `continuous` (the director may carry a shot on into the next through a picture drawn at the join, priced per picture). For transitions, or none, say so in `direction` ("only hard cuts", "dissolve between scenes").
 3. **Revise** until they like it: `plan_music_video` with `revise` `{plan_id, note}`.
 4. **Quote** with `song_id` and `plan_id`: `quote_music_video` / `kinetune quote music-video --song-id … --plan-id …`. Tell the user the credits and that it usually takes 5 to 20 minutes.
 5. **Create** after their go: `create_music_video` / `kinetune create music-video --song-id … --plan-id … --quote-id …`. Check back with `get_video` rather than waiting in one call.
@@ -112,9 +112,9 @@ The kit holds what music videos are made from: each artist's **outfits**, and th
 
 A piece mentioned in `direction` ("Nina in the @blue-set on the @rooftop") is used exactly as it is, and the director designs the rest. An unknown handle is refused with its name: offer to add it to the kit. For places the brief leaves open, `scenes` `invent` (default) has the director imagine them, and `stock` has it find real empty places and put the artist in them (`swap_music_video_place` changes one place's photo).
 
-### Design the shoot (optional)
+### Lookbook (optional, before the shot list)
 
-Before the plan, `design_music_video_shoot` / `kinetune lookbook design …` (free, about a minute) has the director design what the brief leaves open: outfits drawn on the artist, empty places, props. Show its pieces and `price.draw.credits`; drawing them costs those credits, so draw (`render_music_video_lookbook` with those credits) only after the user's go. They keep or redraw pieces (each redraw is priced: ask first), then `plan_music_video` with `lookbook_id`.
+Before the shot list, `design_music_video_shoot` / `kinetune lookbook design …` (free, about a minute) has the director design what the brief leaves open: outfits drawn on the artist, empty places, props. Show its pieces and `price.draw.credits`; drawing them costs those credits, so draw (`render_music_video_lookbook` with those credits) only after the user's go. They keep or redraw pieces (each redraw is priced: ask first), then `plan_music_video` with `lookbook_id`.
 
 ### Backing vocals
 
@@ -129,7 +129,7 @@ If the user asks for something Kinetune can't do yet ("I wish it could…"), off
 - **A failed video returns its credits.**
 - **`retry_video`** makes a video again. That is a new charge, so ask first, but it reuses the Look and media so nothing already made is paid for twice.
 - **`cancel_video`** stops a queued or processing video and releases its credits.
-- **"plan it again"**: a music video plan whose photo or kit piece was deleted, or made with choices no longer offered, can't be quoted. Plan it again.
+- **"plan it again"**: a music video plan whose photo or kit piece was deleted, or made with choices no longer offered, can't be quoted. Write the shot list again (`plan_music_video`).
 - **Not enough credits**: tell the user their balance and the quote. Plans and credit packs are at https://kinetune.com/pricing. Don't shrink the request without asking.
 - **`plan_required`** (402): the workspace has no active plan, so it can't upload or make videos. Tell the user to choose one in the app; don't retry.
 - **`storage_full`** (402): the plan's storage is full (`get_account`: `storage`). Tell the user; deleting videos (`delete_video`) or archiving songs (`archive_song`) they no longer need frees space at once, or they can move up a plan. Ask before deleting anything.
