@@ -107,13 +107,13 @@ It is planned before it is made, and planning is free:
 
 ### The artist kit and @mentions
 
-The kit holds what music videos are made from: each artist's **outfits**, and the workspace's **places** and **props**, shared by every artist. Each piece has an `@handle`.
+The kit holds what music videos are made from: **characters**, **outfits**, **places** and **props**. Each is in one artist's kit (`owner_artist_id`; a project in a Creator workspace) and serves that artist's songs; `shared: true` offers it to every other artist's songs too. Each piece has an `@handle`.
 
-- `list_kit` / `kinetune kit list [--artist-id …]`.
-- `add_kit_piece` / `kinetune kit add --kind outfit|place|prop --name "…" …` from an image (`file`, or `file_url` with `rights_confirmed`) or a stock photo (`stock_id` from `search_stock`), with an optional `crop` (fractions of the image: `{"x","y","w","h"}`, at least 256 px kept). An outfit needs its `artist_id`.
-- `update_kit_piece` renames it, changes its handle or description, or crops it again; `delete_kit_piece` removes it.
+- `list_kit` / `kinetune kit list [--artist-id …]`: with `artist_id`, what a brief for that artist's song can mention (theirs, then what others shared); `owner_artist_id` lists only that artist's kit. `list_characters` takes `for_artist_id` the same way.
+- `add_kit_piece` / `kinetune kit add --kind outfit|place|prop --name "…" …` from an image (`file`, or `file_url` with `rights_confirmed`) or a stock photo (`stock_id` from `search_stock`), with an optional `crop` (fractions of the image: `{"x","y","w","h"}`, at least 256 px kept). An outfit needs its `artist_id`; a place or prop takes `owner_artist_id`, the artist whose kit it goes in (ask whose it is in a workspace with several artists). `keep_character` takes `owner_artist_id` for someone who isn't an artist.
+- `update_kit_piece` renames it, changes its handle or description, crops it again or shares it (`shared`); `delete_kit_piece` removes it.
 
-A piece mentioned in `direction` ("Nina in the @blue-set on the @rooftop") is used exactly as it is, and the director designs the rest. An unknown handle is refused with its name: offer to add it to the kit. For places the brief leaves open, `scenes` `invent` (default) has the director imagine them, and `stock` has it find real empty places and put the artist in them (`swap_music_video_place` changes one place's photo).
+A piece mentioned in `direction` ("Nina in the @blue-set on the @rooftop") is used exactly as it is, and the director designs the rest. An unknown handle is refused with its name: offer to add it to the kit. Another artist's piece is refused until they share it: offer to share it (`update_kit_piece` with `shared: true`) once the user agrees. For places the brief leaves open, `scenes` `invent` (default) has the director imagine them, and `stock` has it find real empty places and put the artist in them (`swap_music_video_place` changes one place's photo).
 
 ### Lookbook (optional, before the shot list)
 

@@ -93,9 +93,9 @@ Conventions:
 
 | Command | What it does |
 |---|---|
-| `kinetune kit list [--artist-id …] [--kind outfit\|place\|prop]` | The workspace's places and props, and an artist's outfits |
-| `kinetune kit add --kind outfit\|place\|prop --name "…" [--artist-id …] [--file ./piece.jpg --rights-confirmed \| --stock-id …] [--crop '{"x":0.1,"y":0.1,"w":0.8,"h":0.8}']` | Adds a piece, named with an @handle |
-| `kinetune kit update KIT_ID [--name "…"] [--handle …] [--crop '…']` | Renames it, changes its handle or crops it again |
+| `kinetune kit list [--artist-id …] [--owner-artist-id …] [--kind outfit\|place\|prop]` | What an artist's songs can use (theirs, then what others shared), or one artist's kit |
+| `kinetune kit add --kind outfit\|place\|prop --name "…" [--artist-id …] [--owner-artist-id …] [--shared] [--file ./piece.jpg --rights-confirmed \| --stock-id …] [--crop '{"x":0.1,"y":0.1,"w":0.8,"h":0.8}']` | Adds a piece, named with an @handle |
+| `kinetune kit update KIT_ID [--name "…"] [--handle …] [--crop '…'] [--shared]` | Renames it, changes its handle, crops it again or shares it with every artist |
 | `kinetune kit delete KIT_ID` | Removes it |
 
 ## Videos
