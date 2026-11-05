@@ -104,6 +104,10 @@ It is planned before it is made, and planning is free:
 5. **Quote** with `song_id` and `plan_id`: `quote_music_video` / `kinetune quote music-video --song-id … --plan-id …`. Tell the user the credits and that it usually takes 5 to 20 minutes.
 6. **Create** after their go: `create_music_video` / `kinetune create music-video --song-id … --plan-id … --quote-id …`. Check back with `get_video` rather than waiting in one call.
 7. **One shot again**: while `revisable_until` (`get_video`) is ahead, `revise_music_video_shot` rewrites one shot for free; quote it with the video and make it after their go. The other shots are kept, not paid for twice.
+   - **Find the shot they mean.** The user names a time ("at 0:12 her hand looks wrong", "the last few seconds") or describes the moment. Read `get_video` → `music_video.shots[]` (`index`, `start_seconds`, `end_seconds`, `summary`, `lyrics`) and pick the shot whose span holds that time, counted from the start of the delivered video (an outro card comes after the last shot, so "the last few seconds" may be the card, not a shot). For a described moment, match it to the `summary` and `lyrics`.
+   - **Confirm it in one line** before revising: the shot's summary and its seconds ("Shot 4, 0:10–0:15: she reaches for the rail on the rooftop. That one?").
+   - Then `revise_music_video_shot` (`kinetune videos revise VIDEO_ID --shot N --note "…"`) with that `index` and the user's own words as the note. Show the rewritten shot, quote it with `song_id`, `plan_id` and the video's `quality` (only the shots made again are charged), and make it only after their go.
+   - A shot may hold several camera cuts (Seedance makes multi-shot clips): revising it makes that whole shot again.
 
 ### The artist kit and @mentions
 
