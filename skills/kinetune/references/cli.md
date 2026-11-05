@@ -28,7 +28,7 @@ Conventions:
 | `kinetune organizations list` | Your workspaces, with type and role; `current` is the one you act for |
 | `kinetune organizations create --name "…" --type artist\|label` | A new workspace you own: an artist's (one artist) or a label's (a roster). It starts with no plan |
 | `kinetune organizations update [--name "…"] [--type artist\|label]` | Renames this workspace or switches its type (an artist workspace holds one artist) |
-| `kinetune options` | Video types, Look categories, background sources, formats, headlines and the credit prices |
+| `kinetune options` | Video types, Look categories, background sources, formats, headlines, the credit prices, and each music video model's guide (best for, strengths, weaknesses, scores) |
 
 ## Artists
 
@@ -81,10 +81,11 @@ Conventions:
 
 | Command | What it does |
 |---|---|
-| `kinetune plan music-video --song-id … [--category …] [--aspect-ratio 9:16] [--trim '{"start_seconds":32,"end_seconds":96}'] [--direction "…"] [--takes cuts\|continuous]` | The director's plan, free (about a minute): its shots and how each comes in (a cut or a transition) |
+| `kinetune plan music-video --song-id … [--model one-take\|seedance-2-0\|seedance-2-0-fast\|seedance-2-0-mini\|seedance-2-5] [--category …] [--aspect-ratio 9:16] [--trim '{"start_seconds":32,"end_seconds":96}'] [--direction "…"] [--takes cuts\|continuous]` | The director's plan, free (about a minute): its shots and how each comes in (a cut or a transition) |
 | `kinetune plan music-video --song-id … --revise '{"plan_id":"plan_…","note":"…"}'` | Rewrites a plan from a note (the next draft), free |
 | `kinetune plans get PLAN_ID` | A plan made earlier |
 | `kinetune quote music-video --song-id … --plan-id … [--quality 768p]` | Exact credits for the planned video, in one of the qualities `kinetune options` lists for the model |
+| `kinetune quote music-video --song-id … --model … [--category …]` | Credits for the same brief with another model, to compare models before planning (free) |
 | `kinetune create music-video …same flags… --quote-id …` | Makes the music video the quote priced |
 | `kinetune lookbook design --song-id … [--direction "…"]` | A lookbook (optional, free, before the shot list): the director's outfits, places and props, not drawn yet |
 | `kinetune lookbook render LOOKBOOK_ID --credits N` | Draws the pieces for the credits the lookbook shows (`price.draw.credits`). Ask the user first |
