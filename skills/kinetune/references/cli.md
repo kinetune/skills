@@ -109,9 +109,15 @@ Conventions:
 | `kinetune videos cancel VIDEO_ID` | Stops a queued or processing video and releases its credits |
 | `kinetune videos retry VIDEO_ID` | Makes a finished, failed or cancelled video again. This is a new charge, though its Look and media are reused |
 | `kinetune videos delete VIDEO_ID` | Deletes a finished video and its files |
+| `kinetune videos share VIDEO_ID [--rights-confirmed] [--socials --credit-handle @name]` | Makes a delivered video public in the Community, its Look reusable by anyone. Only on the user's word; `--rights-confirmed` (a music video) and `--socials` only when they said so |
+| `kinetune videos unshare VIDEO_ID` | Makes it private again, its Look too |
 
 ## Ideas
 
 | Command | What it does |
 |---|---|
+| `kinetune ideas list [--q "…"] [--sort top\|new] [--status open\|…] [--yours]` | The Community board's ideas, most voted first: search here before suggesting one |
+| `kinetune ideas get IDEA_ID` | One idea with its comments |
+| `kinetune ideas vote IDEA_ID` / `unvote IDEA_ID` | Votes for an open idea, or takes the vote back. Ask the user first |
+| `kinetune ideas follow IDEA_ID` / `unfollow IDEA_ID` | An email when it ships, or no more |
 | `kinetune ideas suggest --title "…" [--body "…"] [--area lyric-video\|canvas\|music-video\|everything]` | Suggests a feature on the app's Community board under your name, for others to vote on (5 a day). Ask the user first |

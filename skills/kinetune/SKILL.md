@@ -123,9 +123,18 @@ Before the shot list, `design_music_video_shoot` / `kinetune lookbook design …
 
 Words in (parentheses) in the song's lyrics are the backing vocals': they are sung off camera, and the artist doesn't lip-sync them. To mark them, set the song's lyrics with the parentheses (see [The song's own lyrics](#the-songs-own-lyrics)).
 
+## Making a video public
+
+Only when the user asks, in their own words: `share_video` (`kinetune videos share VIDEO_ID`) puts a delivered video in the app's Community, Kinetune may feature it on kinetune.com, and its Look becomes reusable by anyone (a music video's concept: kind, look, edit, places and props, never the people in it). Ask before calling it and never make a video public on your own. Its two choices are the user's alone, so never set them yourself or carry them over from another video:
+
+- `rights_confirmed: true` (`--rights-confirmed`, required for a music video): they have the right to show the artist and everyone in it publicly.
+- `socials: true` with `credit_handle` (`--socials --credit-handle @name`): Kinetune may also post it on its socials, crediting them.
+
+`unshare_video` (`kinetune videos unshare VIDEO_ID`) makes it private again, its Look too. `get_video` shows `sharing` (null while private).
+
 ## When they wish Kinetune did something
 
-If the user asks for something Kinetune can't do yet ("I wish it could…"), offer to suggest it as an idea: `suggest_idea` (`kinetune ideas suggest --title "…" [--body "…"] [--area lyric-video|canvas|music-video|everything]`). It goes on the Community board in the app under their name, where others vote on it, and they hear by email when it ships. Write the title in their words, in one line, with how they would use it in the body. Leave out private links and contact details, and ask before posting. At most 5 a day.
+If the user asks for something Kinetune can't do yet ("I wish it could…"), look for it first: `list_ideas` with `q` (`kinetune ideas list --q "…"`), and if it is already there, offer to vote for it (`vote_for_idea`, `kinetune ideas vote IDEA_ID`; `follow_idea` for an email when it ships). Otherwise offer to suggest it as an idea: `suggest_idea` (`kinetune ideas suggest --title "…" [--body "…"] [--area lyric-video|canvas|music-video|everything]`). It goes on the Community board in the app under their name, where others vote on it, and they hear by email when it ships. Write the title in their words, in one line, with how they would use it in the body. Leave out private links and contact details, and ask before posting. At most 5 a day.
 
 ## When something goes wrong
 
