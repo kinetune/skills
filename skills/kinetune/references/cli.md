@@ -28,7 +28,7 @@ Conventions:
 | `kinetune organizations list` | Your workspaces, with type and role; `current` is the one you act for |
 | `kinetune organizations create --name "…" --type artist\|label` | A new workspace you own: an artist's (one artist) or a label's (a roster). It starts with no plan |
 | `kinetune organizations update [--name "…"] [--type artist\|label]` | Renames this workspace or switches its type (an artist workspace holds one artist) |
-| `kinetune options` | Video types, Look categories, background sources, formats, headlines and the credit prices |
+| `kinetune options` | Video types, Look categories, background sources, formats, headlines, the credit prices, and each music video model's guide (best for, strengths, weaknesses, scores) |
 
 ## Artists
 
@@ -81,12 +81,13 @@ Conventions:
 
 | Command | What it does |
 |---|---|
-| `kinetune plan music-video --song-id … [--category …] [--aspect-ratio 9:16] [--trim '{"start_seconds":32,"end_seconds":96}'] [--direction "…"] [--takes cuts\|continuous]` | The director's plan, free (about a minute): its shots and how each comes in (a cut or a transition) |
+| `kinetune plan music-video --song-id … [--model one-take\|seedance-2-0\|seedance-2-0-fast\|seedance-2-0-mini\|seedance-2-5] [--category …] [--aspect-ratio 9:16] [--trim '{"start_seconds":32,"end_seconds":96}'] [--direction "…"] [--takes cuts\|continuous]` | The director's plan, free (about a minute): its shots and how each comes in (a cut or a transition) |
 | `kinetune plan music-video --song-id … --revise '{"plan_id":"plan_…","note":"…"}'` | Rewrites a plan from a note (the next draft), free |
 | `kinetune plans get PLAN_ID` | A plan made earlier |
 | `kinetune plans frames PLAN_ID` | Opening frames drawn for a plan's shots, the price of one (`price.credits`) and the shots that can't have one |
 | `kinetune plans draw-frame PLAN_ID --shot N --credits N` | Draws the picture a shot opens on, for the price shown. Ask the user first, then show it |
 | `kinetune quote music-video --song-id … --plan-id … [--quality 768p]` | Exact credits for the planned video, in one of the qualities `kinetune options` lists for the model |
+| `kinetune quote music-video --song-id … --model … [--category …]` | Credits for the same brief with another model, to compare models before planning (free) |
 | `kinetune create music-video …same flags… --quote-id …` | Makes the music video the quote priced |
 | `kinetune lookbook design --song-id … [--direction "…"]` | A lookbook (optional, free, before the shot list): the director's outfits, places and props, not drawn yet |
 | `kinetune lookbook render LOOKBOOK_ID --credits N` | Draws the pieces for the credits the lookbook shows (`price.draw.credits`). Ask the user first |
@@ -105,15 +106,22 @@ Conventions:
 | Command | What it does |
 |---|---|
 | `kinetune videos list [--song-id …] [--type lyric-video\|canvas\|music-video]` | Videos, newest first |
-| `kinetune videos get VIDEO_ID` | Status, progress, credits and, when completed, the download links; while it waits, `queue` says why |
+| `kinetune videos get VIDEO_ID` | Status, progress, credits and, when completed, the download links; while it waits, `queue` says why. A music video lists `music_video.shots[]` (`index`, `start_seconds`, `end_seconds`, `summary`, `lyrics`), timed from the start of the delivered video |
+| `kinetune videos revise VIDEO_ID --shot N --note "…"` | Rewrites one shot of a delivered music video, free. Pick N from `videos get`: the shot whose `start_seconds`–`end_seconds` holds the time the user named (an outro card comes after the last shot). Confirm its summary and seconds with them first, and use their words as the note. Then quote with `--plan-id` (only the shots made again are charged) and create after their go. A shot may hold several camera cuts (Seedance), and the whole shot is made again |
 | `kinetune videos wait VIDEO_ID [--timeout 1800]` | Waits until completed, failed or cancelled, showing its progress or why it waits (its place in line, or busy machines) |
 | `kinetune videos download VIDEO_ID [--out DIR] [--format 9:16] [--web]` | Downloads the files, one per format. `--web` gets the 720p copies |
 | `kinetune videos cancel VIDEO_ID` | Stops a queued or processing video and releases its credits |
 | `kinetune videos retry VIDEO_ID` | Makes a finished, failed or cancelled video again. This is a new charge, though its Look and media are reused |
 | `kinetune videos delete VIDEO_ID` | Deletes a finished video and its files |
+| `kinetune videos share VIDEO_ID [--rights-confirmed] [--socials --credit-handle @name]` | Makes a delivered video public in the Community, its Look reusable by anyone. Only on the user's word; `--rights-confirmed` (a music video) and `--socials` only when they said so |
+| `kinetune videos unshare VIDEO_ID` | Makes it private again, its Look too |
 
 ## Ideas
 
 | Command | What it does |
 |---|---|
+| `kinetune ideas list [--q "…"] [--sort top\|new] [--status open\|…] [--yours]` | The Community board's ideas, most voted first: search here before suggesting one |
+| `kinetune ideas get IDEA_ID` | One idea with its comments |
+| `kinetune ideas vote IDEA_ID` / `unvote IDEA_ID` | Votes for an open idea, or takes the vote back. Ask the user first |
+| `kinetune ideas follow IDEA_ID` / `unfollow IDEA_ID` | An email when it ships, or no more |
 | `kinetune ideas suggest --title "…" [--body "…"] [--area lyric-video\|canvas\|music-video\|everything]` | Suggests a feature on the app's Community board under your name, for others to vote on (5 a day). Ask the user first |
