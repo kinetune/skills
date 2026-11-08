@@ -1,7 +1,7 @@
 {
   "name": "kinetune",
   "version": "1.0.16",
-  "description": "Make AI music videos, lyric videos and Spotify Canvas loops from your songs with Kinetune: plan and read the shot list, pick a Look, confirm, and get the finished video.",
+  "description": "Make AI music videos, lyric videos and Spotify Canvas loops from your songs with Kinetune: read the shot list, pick a Look, confirm, and get the finished video.",
   "author": {
     "name": "Kinetune",
     "email": "support@kinetune.com",
@@ -22,7 +22,7 @@
   "interface": {
     "displayName": "Kinetune",
     "shortDescription": "Music & lyric videos, Canvas",
-    "longDescription": "Kinetune makes every video a song needs: AI music videos, lyric videos and Spotify Canvas loops. Connect your Kinetune account and ask in plain words. For a music video, an AI director reads the song and writes a shot list you can read and change for free; the artist then sings on camera, lip-synced, from their character, on MiniMax or Seedance models. Lyric videos are timed to every word, in reusable Looks, and a Canvas loop is designed from the song's cover, all in 9:16, 16:9 or 1:1. Before anything is made, Kinetune tells you exactly what it will create and waits for your go, then returns download links. You can also upload songs and lyrics, set up the artist's character and kit, and manage your Looks.",
+    "longDescription": "Kinetune makes every video a song needs: AI music videos, lyric videos and Spotify Canvas loops. Connect your Kinetune account and ask in plain words. For a music video, an AI director reads the song and writes a shot list you can read and change before anything is made; the artist then sings on camera, lip-synced, from their character. Lyric videos are timed to every word, in reusable Looks, and a Canvas loop is designed from the song's cover, all in 9:16, 16:9 or 1:1. Before anything is made, Kinetune tells you exactly what it will create and waits for your go, then returns download links. You can also upload songs and lyrics, set up the artist's character and kit, and manage your Looks.",
     "developerName": "Prismosoft",
     "category": "Creativity",
     "capabilities": [
@@ -40,7 +40,6 @@
     "termsOfServiceURL": "https://kinetune.com/terms",
     "defaultPrompt": [
       "Make a performance music video for my new single",
-      "Plan a story music video for my latest song",
       "Make a vertical lyric video for my latest song",
       "Make a Spotify Canvas for my new single"
     ],
@@ -89,7 +88,7 @@
               "description": "Plan and quote a music video without making it",
               "prompt": "Plan a 30-second performance music video for Barefoot in the Tide and tell me what it costs.",
               "tools_triggered": "list_songs, list_characters, plan_music_video, quote_music_video",
-              "expected_behavior": "Finds the song and the artist's character, writes the shot list for free and shows its concept and shots, then returns the exact credits from the quote and asks before creating anything."
+              "expected_behavior": "Finds the song and the artist's character, writes the shot list and shows its concept and shots, then returns the exact credits from the quote and asks before creating anything."
             }
           ],
           "negative": [
@@ -109,7 +108,7 @@
         }
       },
       "publication": {
-        "release_notes": "AI music videos: an AI director plans the shot list you can read and change for free, the artist performs the song lip-synced from their character, on MiniMax and Seedance models, from 15 seconds to the whole song. Also: your own lyrics spelled your way, opening frames for key shots, and sharing to the Community with your consent."
+        "release_notes": "AI music videos: an AI director plans a shot list you can read and change, then the artist performs the song lip-synced from their character, from 15 seconds to the whole song. Also: your own lyrics spelled your way, opening frames for key shots, and sharing to the Community with your consent."
       }
     }
   }
