@@ -7,7 +7,7 @@
 [![Cursor Directory](https://img.shields.io/badge/Cursor_Directory-kinetune-black?logo=cursor)](https://cursor.directory/plugins/kinetune)
 [![mcpservers.org](https://img.shields.io/badge/mcpservers.org-Kinetune-black)](https://mcpservers.org/servers/kinetune-com-developers)
 
-[Kinetune](https://kinetune.com) turns a song into release-ready video: lyric videos with word-synced lyrics and audio-reactive visuals in 9:16, 16:9 and 1:1, and Spotify Canvas loops designed from the song's cover.
+[Kinetune](https://kinetune.com) turns a song into release-ready video: lyric videos with word-synced lyrics and audio-reactive visuals in 9:16, 16:9 and 1:1, AI music videos the artist performs, Spotify Canvas loops, and cover art made from the song.
 
 This repository teaches AI agents to use it. Ask in plain words, for example *"make a vertical lyric video for Midnight Drive"* or *"give my new single a Canvas"*. The agent finds the song, tells you exactly how many credits it costs, and makes the video only after you say yes.
 
@@ -47,7 +47,7 @@ Point any MCP client at `https://kinetune.com/mcp` (Streamable HTTP, OAuth sign-
 
 | Path | What it is |
 |---|---|
-| `skills/kinetune/SKILL.md` | How to make lyric videos, music videos and Canvases, and the rule to quote before spending credits |
+| `skills/kinetune/SKILL.md` | How to make lyric videos, music videos, Canvases and cover art, and the rule to quote before spending credits |
 | `skills/kinetune/references/cli.md` | Every CLI command |
 | `.mcp.json` | The Kinetune MCP server, for the Claude Code plugin |
 | `.claude-plugin/` | The Claude Code plugin and marketplace manifests |

@@ -1,6 +1,6 @@
 {
   "name": "kinetune",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "description": "Make AI music videos, lyric videos and Spotify Canvas loops from your songs with Kinetune: read the shot list, pick a Look, confirm, and get the finished video.",
   "author": {
     "name": "Kinetune",
