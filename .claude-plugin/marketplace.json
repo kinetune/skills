@@ -12,7 +12,7 @@
       "name": "kinetune",
       "source": "./",
       "description": "Make lyric videos, Spotify Canvas loops, AI music videos and cover art from your songs with Kinetune.",
-      "version": "0.1.18",
+      "version": "0.1.19",
       "homepage": "https://kinetune.com/developers",
       "category": "productivity"
     }
