@@ -126,6 +126,9 @@ Conventions:
 | `kinetune casting delete CASTING_ID` | Drops a casting; people already kept stay |
 | `kinetune plans frames PLAN_ID` | Opening frames drawn for a plan's shots, the price of one (`price.credits`) and the shots that can't have one |
 | `kinetune plans draw-frame PLAN_ID --shot N --credits N` | Draws the picture a shot opens on, for the price shown. Ask the user first, then show it |
+| `kinetune plans angles PLAN_ID` | A shot list's set angles, each place's angles with their pictures once drawn, and the price of one |
+| `kinetune plans draw-angles PLAN_ID [--places 2 3] [--redraw] [--confirm --credits N]` | Draws the angles now to see them before the video. Without `--confirm`, only the price: ask first |
+| `kinetune plans drop-angle PLAN_ID PLACE` | The next draft without that angle (its shots back on the place's own picture), free |
 | `kinetune quote music-video --song-id … --plan-id … [--quality 768p]` | Exact credits for the planned video, in one of the qualities `kinetune options` lists for the model |
 | `kinetune quote music-video --song-id … --model … [--category …]` | Credits for the same brief with another model, to compare models before planning (free) |
 | `kinetune create music-video …same flags… --quote-id …` | Makes the music video the quote priced |
@@ -148,7 +151,7 @@ Conventions:
 | `kinetune kit update KIT_ID [--name "…"] [--handle …] [--crop '…'] [--shared]` | Renames it, changes its handle, crops it again or shares it with every artist |
 | `kinetune kit delete KIT_ID` | Removes it |
 | `kinetune kit get KIT_ID` | One piece |
-| `kinetune kit angles KIT_ID [--angles three-quarter side low] [--confirm --credits N]` | A place drawn again from other sides, each a new place. Without `--confirm`, only the price: ask first |
+| `kinetune kit angles KIT_ID [--angles reverse low overhead] [--confirm --credits N]` | A place drawn again from the angles picked (wide, three-quarter, side, reverse, corner, low, high, overhead, detail, framed), each a new place. Without `--confirm`, only the price: ask first |
 
 ## Videos
 
