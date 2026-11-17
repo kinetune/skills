@@ -128,13 +128,13 @@ Conventions:
 | `kinetune plans draw-frame PLAN_ID --shot N --credits N` | Draws the picture a shot opens on, for the price shown. Ask the user first, then show it |
 | `kinetune plans versions PLAN_ID` | Every version of a shot list, oldest first, with the note each was written from |
 | `kinetune plans delete-version PLAN_ID VERSION_ID` | Deletes one version a video wasn't made from; its pictures stay |
-| `kinetune plans angles PLAN_ID` | A shot list's set angles, each place's angles with their pictures once drawn, and the price of one |
-| `kinetune plans draw-angles PLAN_ID [--places 2 3] [--redraw] [--confirm --credits N]` | Draws the angles now to see them before the video. Without `--confirm`, only the price: ask first |
+| `kinetune plans pictures PLAN_ID` | A shot list's pictures (places and their angles, outfits on its people, designed props), by key, each with its price and picture once drawn |
+| `kinetune plans draw-pictures PLAN_ID [--pictures place:3 outfit:1] [--redraw] [--confirm --credits N]` | Draws them now to see them before the video; each waits in the kit to be kept. Without `--confirm`, only the price: ask first |
 | `kinetune plans drop-angle PLAN_ID PLACE` | The next draft without that angle (its shots back on the place's own picture), free |
 | `kinetune quote music-video --song-id … --plan-id … [--quality 768p]` | Exact credits for the planned video, in one of the qualities `kinetune options` lists for the model |
 | `kinetune quote music-video --song-id … --model … [--category …]` | Credits for the same brief with another model, to compare models before planning (free) |
 | `kinetune create music-video …same flags… --quote-id …` | Makes the music video the quote priced |
-| `kinetune lookbook design --song-id … [--direction "…"]` | A lookbook (optional, free, before the shot list): the director's outfits, places and props, not drawn yet |
+| `kinetune lookbook design --song-id … [--direction "…"]` | Deprecated until 2027-05-15 (the shot list draws its own pictures). A lookbook: the director's outfits, places and props, not drawn yet |
 | `kinetune lookbook render LOOKBOOK_ID --credits N` | Draws the pieces for the credits the lookbook shows (`price.draw.credits`). Ask the user first |
 | `kinetune lookbook get LOOKBOOK_ID` | Its pieces and pictures as they are drawn, and the prices |
 | `kinetune lookbook keep LOOKBOOK_ID PIECE --no-kept` | Leaves a piece out of the video (free) |
