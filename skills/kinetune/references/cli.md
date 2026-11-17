@@ -126,6 +126,8 @@ Conventions:
 | `kinetune casting delete CASTING_ID` | Drops a casting; people already kept stay |
 | `kinetune plans frames PLAN_ID` | Opening frames drawn for a plan's shots, the price of one (`price.credits`) and the shots that can't have one |
 | `kinetune plans draw-frame PLAN_ID --shot N --credits N` | Draws the picture a shot opens on, for the price shown. Ask the user first, then show it |
+| `kinetune plans versions PLAN_ID` | Every version of a shot list, oldest first, with the note each was written from |
+| `kinetune plans delete-version PLAN_ID VERSION_ID` | Deletes one version a video wasn't made from; its pictures stay |
 | `kinetune plans angles PLAN_ID` | A shot list's set angles, each place's angles with their pictures once drawn, and the price of one |
 | `kinetune plans draw-angles PLAN_ID [--places 2 3] [--redraw] [--confirm --credits N]` | Draws the angles now to see them before the video. Without `--confirm`, only the price: ask first |
 | `kinetune plans drop-angle PLAN_ID PLACE` | The next draft without that angle (its shots back on the place's own picture), free |
