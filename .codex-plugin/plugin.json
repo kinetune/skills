@@ -1,6 +1,6 @@
 {
   "name": "kinetune",
-  "version": "1.0.20",
+  "version": "1.0.21",
   "description": "Make AI music videos, lyric videos and Spotify Canvas loops from your songs with Kinetune: read the shot list, pick a Look, confirm, and get the finished video.",
   "author": {
     "name": "Kinetune",
@@ -22,7 +22,7 @@
   "interface": {
     "displayName": "Kinetune",
     "shortDescription": "Music & lyric videos, Canvas",
-    "longDescription": "Kinetune makes every video a song needs: AI music videos, lyric videos and Spotify Canvas loops. Connect your Kinetune account and ask in plain words. For a music video, an AI director reads the song and writes a shot list you can read and change before anything is made; the artist then sings on camera, lip-synced, from their character. Lyric videos are timed to every word, in reusable Looks, and a Canvas loop is designed from the song's cover, all in 9:16, 16:9 or 1:1. Before anything is made, Kinetune tells you exactly what it will create and waits for your go, then returns download links. You can also upload songs and lyrics, set up the artist's character and kit, and manage your Looks.",
+    "longDescription": "Kinetune makes every video a song needs: AI music videos, lyric videos and Spotify Canvas loops. Connect your Kinetune account and ask in plain words. For a music video, an AI director reads the song and writes a shot list you can read and change before anything is made; the artist then sings on camera, lip-synced, from their character. Lyric videos are timed to every word, in reusable Looks, and a Canvas loop is designed from the song or its cover, all in 9:16, 16:9 or 1:1. Before anything is made, Kinetune tells you exactly what it will create and waits for your go, then returns download links. You can also upload songs and lyrics, set up the artist's character and kit, and manage your Looks.",
     "developerName": "Prismosoft",
     "category": "Creativity",
     "capabilities": [

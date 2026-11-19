@@ -16,6 +16,7 @@ Conventions:
 |---|---|
 | `kinetune auth login` | Opens the browser to sign in and pick the workspace (a new account sets it up and chooses a plan first). Add `--no-browser` to print the URL instead |
 | `kinetune auth login --api-key kt_live_…` | Stores a workspace API key |
+| `kinetune auth list` | The workspaces you are signed in to; `--organization` on any command acts for one of them |
 | `kinetune auth status` | The workspace, its plan, how you are signed in, and the credit balance |
 | `kinetune auth token` | Prints the bearer token, for curl |
 | `kinetune auth logout` | Forgets the credentials |
@@ -28,7 +29,7 @@ Conventions:
 | `kinetune organizations list` | Your workspaces, with type and role; `current` is the one you act for |
 | `kinetune organizations create --name "…" --type artist\|label` | A new workspace you own: an artist's (one artist) or a label's (a roster). It starts with no plan |
 | `kinetune organizations update [--name "…"] [--type artist\|label]` | Renames this workspace or switches its type (an artist workspace holds one artist) |
-| `kinetune options` | Video types, Look categories, background sources, formats, headlines, the credit prices, and each music video model's guide (best for, strengths, weaknesses, scores) |
+| `kinetune options` | Video types, lyric styles, visuals, Stock collections (`clip_moods`), transitions, grades, title cards, formats, headlines, the plans and credit prices, and each music video model's guide (best for, strengths, weaknesses, scores) |
 
 ## Artists
 
@@ -37,10 +38,23 @@ Conventions:
 | `kinetune artists list [--q …]` | Artists by name, with song and photo counts |
 | `kinetune artists create --name "…"` | Adds an artist |
 | `kinetune artists get ARTIST_ID` | One artist |
-| `kinetune artists rename ARTIST_ID --name "…"` | Renames an artist |
+| `kinetune artists rename ARTIST_ID [--name "…"] [--spotify-artist-id …] [--links '{…}']` | Renames an artist, or sets their Spotify id and links |
+| `kinetune artists find --q "…"` | The artist in the music catalog by full name or Apple Music link, each match with its song count and newest release |
+| `kinetune artists link ARTIST_ID --catalog-artist-id … --catalog-confirmed` | Links the artist to the match the user said is theirs, once (Artist and Label workspaces) |
 | `kinetune artists archive ARTIST_ID` | Removes an artist that has no songs |
 | `kinetune artists image set ARTIST_ID --image ./photo.jpg [--crop '{"x":0.1,"y":0,"size":0.8}']` | The artist's picture, kept as a 512 px square (a display picture only, never shown to a model) |
 | `kinetune artists image remove ARTIST_ID` | Removes it: they show their initial |
+| `kinetune artists profiles list ARTIST_ID` | Their links on other services, the search's state, and the ones removed |
+| `kinetune artists profiles add ARTIST_ID --url …` | Adds a link by hand (the service is recognised from the address) |
+| `kinetune artists profiles update ARTIST_ID PROFILE_ID [--confirmed] [--state shown\|hidden]` | Confirms, hides, shows or corrects one. A found profile is on the page only once confirmed |
+| `kinetune artists profiles confirm-all ARTIST_ID` | Confirms every found profile at once. Only when the user says all are theirs |
+| `kinetune artists profiles order ARTIST_ID --order PROFILE_ID …`, `kinetune artists profiles remove ARTIST_ID PROFILE_ID` | Reorders them, or removes one for good |
+| `kinetune artists profiles discover ARTIST_ID` | Looks for their profiles again from their Apple Music connection |
+| `kinetune artists page check HANDLE`, `kinetune artists page claim ARTIST_ID --handle …` | Whether kinetune.com/@handle is free, then claims it |
+| `kinetune artists page get ARTIST_ID`, `kinetune artists page preview ARTIST_ID` | The page's status and draft, or the draft as fans will see it |
+| `kinetune artists page update ARTIST_ID [--sections '[…]'] …` | Changes the draft (look, photo, genres, sections); send only what changes |
+| `kinetune artists page publish ARTIST_ID`, `kinetune artists page unpublish ARTIST_ID` | Puts the draft live (ask first), or takes the page offline |
+| `kinetune artists page stats ARTIST_ID` | Views, visitors, clicks and click rate |
 
 ## Characters
 
@@ -61,11 +75,20 @@ Conventions:
 |---|---|
 | `kinetune songs list [--q …] [--status ready] [--sort newest] [--artist-id …] [--limit N --offset N]` | Songs with cover, duration and analysis status |
 | `kinetune songs create [--artist-id …] --title "…" --audio FILE_OR_URL --cover-art FILE_OR_URL [--language en] [--lyrics-file FILE]` | Uploads a song, then analysis starts. `--lyrics-file` (text, `.srt`, `.vtt` or `.lrc`) gives it the song's own lyrics |
+| `kinetune songs released ARTIST_ID [--q …]` | A linked artist's released songs, newest first, with `song_id` on the ones already in |
+| `kinetune songs import --artist-id … --track-ids … [--distinct-track-ids …]` | Brings released songs in without uploading: Kinetune fetches the audio and uses the release's title and cover |
+| `kinetune songs imports`, `kinetune songs import-status IMPORT_ID` | Imports on their way, failed ones waiting for a file, and today's done ones |
+| `kinetune songs import-audio IMPORT_ID --audio ./song.wav`, `kinetune songs import-cancel IMPORT_ID` | Gives the file of a song that couldn't be fetched, or drops the import |
 | `kinetune songs get SONG_ID` | One song. Wait for `analysis.status` `"ready"` |
+| `kinetune songs download SONG_ID` | Its cover art (full size) and audio file |
 | `kinetune songs analysis SONG_ID [--min-seconds 15]` | Word-timed lyrics, tempo, beats, sections, hook and the parts a video can be cut to (`--min-seconds 15` for a music video) |
 | `kinetune songs reanalyze SONG_ID` | Retries a failed analysis |
 | `kinetune songs set-lyrics SONG_ID --lyrics-file FILE` | Gives the song its own lyrics (text, `.srt`, `.vtt` or `.lrc`; `--lyrics "…"` takes them inline): videos spell every word that way, timed from the audio |
 | `kinetune songs clear-lyrics SONG_ID` | Goes back to the transcribed words |
+| `kinetune songs set-words SONG_ID --input words.json` | Every word with its `start`, `end` and `line`, fixed by hand (`{"words":[…]}`, as `songs analysis` gives them) and saved exactly so |
+| `kinetune songs transcription-price SONG_ID` | What listening to the song again costs |
+| `kinetune songs transcribe SONG_ID --credits N [--language fr]` | Listens to it again with Kinetune's current transcription model. Ask first |
+| `kinetune songs draft SONG_ID` | The Look and clips picture Kinetune picks for the song, at once (what a lyric video without a Look id gets) |
 | `kinetune songs rename SONG_ID --title "…"` | Renames a song |
 | `kinetune songs archive SONG_ID` | Removes a song. Its videos stay |
 | `kinetune songs set-cover SONG_ID --cover-art ./cover.jpg` | Adds a cover or replaces the one in use; the one before stays on the song |
@@ -94,17 +117,30 @@ Conventions:
 | `kinetune looks rename LOOK_ID --name "…"` | Renames one of your Looks |
 | `kinetune looks visibility LOOK_ID --visibility public\|private` | Makes one of your Looks public or private |
 | `kinetune looks delete LOOK_ID` | Removes one of your Looks. Videos made with it stay |
+| `kinetune looks save --name "…" --from-id LOOK_ID [--lyric-style …] [--visual '{…}'] [--background '{…}']` | A private Look of your own from a saved one, with your changes |
 | `kinetune looks music-video [--scope all\|community\|mine]` | Music video Looks: public ones and the workspace's own. Pass one's id as `--look-id` when planning or quoting |
 | `kinetune looks music-video-get LOOK_ID`, `kinetune looks music-video-delete LOOK_ID` | One music video Look, or removes one of yours |
-| `kinetune stock search --q "…"` | Stock photos or clips for a background (credit the photographer) |
-| `kinetune backgrounds upload --file ./clip.mp4 --rights-confirmed` | Your own photo or video (or `--video-id` of one of your music videos) to design a New Look around |
+
+## Footage
+
+| Command | What it does |
+|---|---|
+| `kinetune clips browse MOOD_ID [--shape tall\|wide] [--energy calm\|medium\|bold] [--sort best\|newest\|length] [--offset N]` | The clips inside one Stock collection, a page at a time (free) |
+| `kinetune clips similar CLIP_ID [--limit 24]` | More like this: clips from Stock and your folders that look and move like one (free, no AI) |
+| `kinetune clips list --moods city,golden [--folders …]` | The clips of those sources, to plan a cut yourself (`edit.clips`) |
+| `kinetune clips generate --prompt "…" --kind image\|video [--shape tall\|wide] [--count N] [--credits N]` | New pictures or clips from words, into your AI folder. Without `--credits`, only the price: ask first |
+| `kinetune clips move --clip-ids … --folder-id …`, `kinetune clips delete CLIP_ID` | Moves some of your clips to another folder, or removes one |
+| `kinetune clip-folders list`, `kinetune clip-folders get FOLDER_ID` | Your folders, or one folder's clips and the imports on their way |
+| `kinetune clip-folders create --name "…"`, `kinetune clip-folders rename FOLDER_ID --name "…"`, `kinetune clip-folders delete FOLDER_ID` | Makes, renames or removes a folder (and its clips) |
+| `kinetune clip-folders import FOLDER_ID (--url … \| --file-url … \| --stock-id …)` | Cuts a YouTube, TikTok or Instagram link, a file or a stock video into clips at every scene change (free with a plan) |
+| `kinetune stock search --kind photo\|video --q "…" [--orientation portrait\|landscape] [--seconds 8]` | Stock photos or clips, to import into a folder or use in a Canvas (credit the creator) |
 
 ## Quote and create
 
 | Command | What it does |
 |---|---|
-| `kinetune quote lyric-video --song-id … --look '{…}' [--aspect-ratios 9:16 16:9] [--variations N] [--display '{…}'] [--trim '{…}']` | Exact credits for a lyric video |
-| `kinetune quote canvas --song-id … [--source ai-video] [--seconds 8] [--style …] [--direction "…"]` | Exact credits for a Canvas |
+| `kinetune quote lyric-video --song-id … [--look '{"id":"look_…","background":{"kind":"clips","sources":{"moods":["city"]}}}'] [--aspect-ratios 9:16 16:9] [--variations N] [--display '{…}'] [--trim '{…}'] [--edit '{"seed":7}']` | Exact credits for a lyric video (`--look` left out: the one `songs draft` shows) |
+| `kinetune quote canvas --song-id … [--source ai-video] [--inspiration song\|cover] [--seconds 8] [--style …] [--direction "…"]` | Exact credits for a Canvas |
 | `kinetune create lyric-video …same flags… --quote-id …` | Makes the lyric video the quote priced |
 | `kinetune create canvas …same flags… --quote-id …` | Makes the Canvas the quote priced |
 
@@ -114,11 +150,14 @@ Conventions:
 
 | Command | What it does |
 |---|---|
-| `kinetune plan music-video --song-id … [--model one-take\|seedance-2-0\|seedance-2-0-fast\|seedance-2-0-mini\|seedance-2-5] [--category …] [--aspect-ratio 9:16] [--trim '{"start_seconds":32,"end_seconds":96}'] [--direction "…"] [--takes cuts\|continuous]` | The director's plan, free (about a minute): its shots and how each comes in (a cut or a transition) |
-| `kinetune plan music-video --song-id … --revise '{"plan_id":"plan_…","note":"…"}'` | Rewrites a plan from a note (the next draft), free |
+| `kinetune plans list --song-id …` | What writing a shot list costs now (`price.credits`), the song's shot lists not made into a video yet (last 30 days) and the ones being written |
+| `kinetune plan music-video --song-id … --credits N [--model one-take\|seedance-2-0\|seedance-2-0-fast\|seedance-2-0-mini\|seedance-2-5] [--category …] [--aspect-ratio 9:16] [--trim '{"start_seconds":32,"end_seconds":96}'] [--direction "…"] [--takes cuts\|continuous]` | The director's shot list for the price shown (a minute or more): its shots and how each comes in (a cut or a transition). Ask first |
+| `kinetune plan music-video --song-id … --revise '{"plan_id":"plan_…","note":"…"}' --credits N` | Rewrites it from a note (the next version), for the same price. Ask first |
+| `kinetune plans writing WRITE_ID` | A shot list being written (asked with `"wait": false`), its shots as they are written |
 | `kinetune plans get PLAN_ID` | A plan made earlier |
-| `kinetune plans list --song-id …` | A song's shot lists and lookbooks not made into a video yet (last 30 days) |
-| `kinetune plans delete PLAN_ID` | Drops a shot list |
+| `kinetune plans delete PLAN_ID` | Drops a shot list (its opening frames are kept) |
+| `kinetune plans check-model PLAN_ID --model …` | Whether the shot list can be kept with another model, what it needs and what changes (free) |
+| `kinetune plans switch-model PLAN_ID --model …` | The next version made with that model: same shots, idea, people and frames (free) |
 | `kinetune plans swap-place PLAN_ID PLACE --stock-id …` | Another stock photo for one of a plan's places (free) |
 | `kinetune casting propose --song-id … [same brief as plan]` | The director proposes up to 3 more people, free; each shown with its price |
 | `kinetune casting get CASTING_ID` | The casting, then the people as drawn (`people_for_brief` once ready) |
@@ -134,14 +173,6 @@ Conventions:
 | `kinetune quote music-video --song-id … --plan-id … [--quality 768p]` | Exact credits for the planned video, in one of the qualities `kinetune options` lists for the model |
 | `kinetune quote music-video --song-id … --model … [--category …]` | Credits for the same brief with another model, to compare models before planning (free) |
 | `kinetune create music-video …same flags… --quote-id …` | Makes the music video the quote priced |
-| `kinetune lookbook design --song-id … [--direction "…"]` | Deprecated until 2027-05-15 (the shot list draws its own pictures). A lookbook: the director's outfits, places and props, not drawn yet |
-| `kinetune lookbook render LOOKBOOK_ID --credits N` | Draws the pieces for the credits the lookbook shows (`price.draw.credits`). Ask the user first |
-| `kinetune lookbook get LOOKBOOK_ID` | Its pieces and pictures as they are drawn, and the prices |
-| `kinetune lookbook keep LOOKBOOK_ID PIECE --no-kept` | Leaves a piece out of the video (free) |
-| `kinetune lookbook redraw LOOKBOOK_ID PIECE [--note "…"] --credits N` | Draws one of the director's pieces again. Ask first |
-| `kinetune lookbook redesign LOOKBOOK_ID --note "…" --credits N` | Redesigns the director's pieces from a note. Ask first |
-| `kinetune lookbook update LOOKBOOK_ID --no-save-to-kit` | Uses the kept pieces for that video only, not the kit |
-| `kinetune lookbook delete LOOKBOOK_ID` | Deletes one nothing was made from |
 | `kinetune quote music-video --song-id … --plan-id … --test` | Prices testing the plan first: its first chorus at 480p, for a fraction of the price |
 
 ## Kit
@@ -170,6 +201,8 @@ Conventions:
 | `kinetune videos cancel VIDEO_ID` | Stops a queued or processing video and releases its credits |
 | `kinetune videos retry VIDEO_ID` | Makes a finished, failed or cancelled video again. This is a new charge, though its Look and media are reused |
 | `kinetune videos delete VIDEO_ID` | Deletes a finished video and its files |
+| `kinetune drafts list` | Videos started in the studio and not made yet, one per song and kind (kept 30 days) |
+| `kinetune drafts delete (--id … \| --all [--song-id …] [--type lyric-video\|canvas\|music-video])` | Deletes one draft or every one. Only when the user asks |
 | `kinetune videos share VIDEO_ID [--rights-confirmed] [--socials --credit-handle @name]` | Makes a delivered video public in the Community, its Look reusable by anyone. Only on the user's word; `--rights-confirmed` (a music video) and `--socials` only when they said so |
 | `kinetune videos unshare VIDEO_ID` | Makes it private again, its Look too |
 
