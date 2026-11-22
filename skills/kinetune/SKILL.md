@@ -12,7 +12,7 @@ Kinetune turns a song into release-ready video:
 - **AI music videos**: the song's artist performs it, lip-synced, kept from their character, from 15 seconds to 10 minutes. See [Music videos](#music-videos).
 - **Cover art**: Kinetune's cover art director makes 1 to 4 covers for a song (3000×3000), each a different idea, with the title and artist name lettered in if the user wants. See [Cover art](#cover-art).
 
-Lyric videos use a **Look**, a complete reusable design. Reuse a saved Look, or let Kinetune pick one for the song, and change its lyric style, visual or picture.
+Lyric videos use a **Look**, a complete reusable design. Reuse a saved Look, or let Kinetune pick one for the song, and change its lyric style, visual or picture. A Look made before clips keeps its own picture as clips of its own (`background.sources.looks`); Stock's Looks collection holds every Official and Community Look's picture.
 
 ## The one rule: quote, tell, wait for the go
 
