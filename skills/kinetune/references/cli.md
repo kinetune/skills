@@ -118,6 +118,7 @@ Conventions:
 | `kinetune looks visibility LOOK_ID --visibility public\|private` | Makes one of your Looks public or private |
 | `kinetune looks delete LOOK_ID` | Removes one of your Looks. Videos made with it stay |
 | `kinetune looks save --name "…" --from-id LOOK_ID [--lyric-style …] [--visual '{…}'] [--background '{…}']` | A private Look of your own from a saved one, with your changes |
+| `kinetune looks clips LOOK_ID` | The clips a clips Look cuts its picture from |
 | `kinetune looks music-video [--scope all\|community\|mine]` | Music video Looks: public ones and the workspace's own. Pass one's id as `--look-id` when planning or quoting |
 | `kinetune looks music-video-get LOOK_ID`, `kinetune looks music-video-delete LOOK_ID` | One music video Look, or removes one of yours |
 
@@ -127,8 +128,12 @@ Conventions:
 |---|---|
 | `kinetune clips browse MOOD_ID [--shape tall\|wide] [--energy calm\|medium\|bold] [--sort best\|newest\|length] [--offset N]` | The clips inside one Stock collection, a page at a time (free) |
 | `kinetune clips similar CLIP_ID [--limit 24]` | More like this: clips from Stock and your folders that look and move like one (free, no AI) |
-| `kinetune clips list --moods city,golden [--folders …]` | The clips of those sources, to plan a cut yourself (`edit.clips`) |
-| `kinetune clips generate --prompt "…" --kind image\|video [--shape tall\|wide] [--count N] [--credits N]` | New pictures or clips from words, into your AI folder. Without `--credits`, only the price: ask first |
+| `kinetune clips list --moods nature,euphoria [--folders …]` | The clips of those sources, to plan a cut yourself (`edit.clips`) |
+| `kinetune clips generate (--prompt "…" \| --song-id … --from song\|cover) --kind image\|video [--with artist\|kit_…] [--model …] [--style calm\|cinematic\|dreamy\|intense] [--loop] [--shape tall\|wide] [--count N] [--credits N]` | New pictures or clips into your AI folder, from words, the song or its cover. Without `--credits`, only the price (and, from the song, three ideas): ask first |
+| `kinetune clips loop CLIP_ID [--span N] [--seam N]` | Best spot: where a clip loops best as a Canvas drift, and its loop score (free) |
+| `kinetune clips rebound CLIP_ID [--at N] [--half N] [--speed N] [--steady]`, `kinetune clips steady CLIP_ID` | The file a Canvas rebound, or a Canvas with `steady`, will play (free) |
+| `kinetune clips analyze --clip-ids … [--behind]` | Finds the subject and faces of clips a preview you planned shows (free, capped per day for your own clips) |
+| `kinetune clips retry-import IMPORT_ID`, `kinetune clips dismiss-import IMPORT_ID` | Tries a failed clip import or generated clip again, or removes its tile |
 | `kinetune clips move --clip-ids … --folder-id …`, `kinetune clips delete CLIP_ID` | Moves some of your clips to another folder, or removes one |
 | `kinetune clip-folders list`, `kinetune clip-folders get FOLDER_ID` | Your folders, or one folder's clips and the imports on their way |
 | `kinetune clip-folders create --name "…"`, `kinetune clip-folders rename FOLDER_ID --name "…"`, `kinetune clip-folders delete FOLDER_ID` | Makes, renames or removes a folder (and its clips) |
@@ -139,10 +144,13 @@ Conventions:
 
 | Command | What it does |
 |---|---|
-| `kinetune quote lyric-video --song-id … [--look '{"id":"look_…","background":{"kind":"clips","sources":{"moods":["city"]}}}'] [--aspect-ratios 9:16 16:9] [--variations N] [--display '{…}'] [--trim '{…}'] [--edit '{"seed":7}']` | Exact credits for a lyric video (`--look` left out: the one `songs draft` shows) |
-| `kinetune quote canvas --song-id … [--source ai-video] [--inspiration song\|cover] [--seconds 8] [--style …] [--direction "…"]` | Exact credits for a Canvas |
+| `kinetune quote lyric-video --song-id … [--look '{"id":"look_…","background":{"kind":"clips","sources":{"moods":["nature"]}}}'] [--aspect-ratios 9:16 16:9] [--variations N] [--display '{…}'] [--trim '{…}'] [--edit '{"seed":7}']` | Exact credits for a lyric video (`--look` left out: the one `songs draft` shows) |
+| `kinetune quote canvas --song-id … [--picture '{"kind":"clips","sources":{"moods":["nature"]}}'] [--loop drift\|rebound\|cuts] [--seconds 8] [--edit '{…}'] [--light '{"preset":"…"}'] [--atmosphere dust] [--effects '[{"id":"film-grain","amount":0.5}]'] [--variations N]` | Exact credits for a Canvas: a picture (`clips`, `cover`, `visualizer` or `generate`), a loop and a length |
 | `kinetune create lyric-video …same flags… --quote-id …` | Makes the lyric video the quote priced |
 | `kinetune create canvas …same flags… --quote-id …` | Makes the Canvas the quote priced |
+| `kinetune canvas-presets list` | Your saved Canvas looks, the latest first |
+| `kinetune canvas-presets save --name "…" --look '{"loop":"drift","seconds":8,"grade":"noir","atmosphere":"dust"}'` | Keeps a Canvas look (no clips or song) under a name; the same name replaces it, so ask first |
+| `kinetune canvas-presets rename PRESET_ID --name "…"`, `kinetune canvas-presets delete PRESET_ID` | Renames or removes one |
 
 `kinetune create …` without `--quote-id` quotes first, shows the credits and asks. Use `--max-credits N` to refuse anything pricier. Pass `--yes` only when the user has agreed to that amount.
 

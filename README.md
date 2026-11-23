@@ -41,7 +41,7 @@ kinetune auth login
 
 [![Add to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/install-mcp?name=kinetune&config=eyJ1cmwiOiJodHRwczovL2tpbmV0dW5lLmNvbS9tY3AifQ%3D%3D) [![Install in VS Code](https://img.shields.io/badge/VS_Code-Install_Kinetune-0098FF?logo=visualstudiocode&logoColor=white)](https://vscode.dev/redirect/mcp/install?name=kinetune&config=%7B%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fkinetune.com%2Fmcp%22%7D)
 
-Point any MCP client at `https://kinetune.com/mcp` (Streamable HTTP, OAuth sign-in). It's listed in the [official MCP Registry](https://registry.modelcontextprotocol.io/v0/servers?search=com.kinetune/kinetune) as `com.kinetune/kinetune`, and on [Glama](https://glama.ai/mcp/connectors/com.kinetune/kinetune), [Smithery](https://smithery.ai/servers/kinetune/kinetune), [mcp.so](https://mcp.so/servers/kinetune), [Cursor Directory](https://cursor.directory/plugins/kinetune) and [mcpservers.org](https://mcpservers.org/servers/kinetune-com-developers). Setup for ChatGPT, Claude, Cursor and VS Code is at [kinetune.com/developers](https://kinetune.com/developers#mcp).
+Point any MCP client at `https://kinetune.com/mcp` (Streamable HTTP, OAuth sign-in). It's listed in the [official MCP Registry](https://registry.modelcontextprotocol.io/v0/servers?search=com.kinetune/kinetune) as `com.kinetune/kinetune`, and on [Glama](https://glama.ai/mcp/connectors/com.kinetune/kinetune), [Smithery](https://smithery.ai/servers/kinetune/kinetune), [mcp.so](https://mcp.so/servers/kinetune), [Cursor Directory](https://cursor.directory/plugins/kinetune) and [mcpservers.org](https://mcpservers.org/servers/kinetune-com-developers). In ChatGPT, add the [Kinetune app](https://chatgpt.com/plugins/plugin_asdk_app_6ac8644fd31c8191a871ef900fb7cb41) from the app directory. Setup for Claude, Cursor and VS Code is at [kinetune.com/developers](https://kinetune.com/developers#mcp).
 
 ## What's inside
 
@@ -58,7 +58,9 @@ Point any MCP client at `https://kinetune.com/mcp` (Streamable HTTP, OAuth sign-
 
 - [Developer docs](https://kinetune.com/developers): REST API, MCP server, CLI and n8n
 - [Full API reference for LLMs](https://kinetune.com/llms-full.txt)
-- [Pricing](https://kinetune.com/pricing)
+- [Pricing](https://kinetune.com/pricing): the same prices on the web and in the apps
+- The Kinetune app for [iPhone](https://apps.apple.com/app/id6821154371) and [Android](https://play.google.com/store/apps/details?id=com.kinetune.app)
+- [Kinetune in ChatGPT](https://chatgpt.com/plugins/plugin_asdk_app_6ac8644fd31c8191a871ef900fb7cb41)
 - Support: support@kinetune.com
 
 MIT licensed.
