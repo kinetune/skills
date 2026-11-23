@@ -173,8 +173,8 @@ Conventions:
 | `kinetune casting delete CASTING_ID` | Drops a casting; people already kept stay |
 | `kinetune plans frames PLAN_ID` | Opening frames drawn for a plan's shots, the price of one (`price.credits`) and the shots that can't have one |
 | `kinetune plans draw-frame PLAN_ID --shot N --credits N` | Draws the picture a shot opens on, for the price shown. Ask the user first, then show it |
-| `kinetune plans draw-frame PLAN_ID --all --shots 1 4 7 --credits N` | Draw all: every frame not drawn yet (`batch_shots` from `plans frames`), in the background, for one frame's price × their number (CLI after 4.1.0) |
-| `kinetune plans storyboard PLAN_ID` | The shot list as a storyboard: every shot with its picture so far, the outfits, and what drawing the rest costs (free) (CLI after 4.1.0) |
+| `kinetune plans draw-frame PLAN_ID --all --shots 1 4 7 --credits N` | Draw all: every frame not drawn yet (`batch_shots` from `plans frames`), in the background, for one frame's price × their number (CLI 4.2.0 or later) |
+| `kinetune plans storyboard PLAN_ID` | The shot list as a storyboard: every shot with its picture so far, the outfits, and what drawing the rest costs (free) (CLI 4.2.0 or later) |
 | `kinetune plans versions PLAN_ID` | Every version of a shot list, oldest first, with the note each was written from |
 | `kinetune plans delete-version PLAN_ID VERSION_ID` | Deletes one version a video wasn't made from; its pictures stay |
 | `kinetune plans pictures PLAN_ID` | A shot list's pictures (places and their angles, outfits on its people, designed props), by key, each with its price and picture once drawn |
@@ -212,8 +212,8 @@ Conventions:
 | `kinetune videos retry VIDEO_ID` | Makes a finished, failed or cancelled video again. This is a new charge, though its Look and media are reused |
 | `kinetune videos delete VIDEO_ID` | Deletes a finished video and its files |
 | `kinetune drafts list` | Videos started in the studio and not made yet, one per song and kind (kept 30 days) |
-| `kinetune drafts get SONG_ID [--type lyric-video\|canvas]` | The person's draft for a song, as the editor keeps it: Look, sources, recipe, every cut's clip and transition, and the exact `request` to quote (free) (CLI after 4.1.0) |
-| `kinetune drafts edit SONG_ID --input change.json` | Changes the draft as the editor would (`shuffle`, `replace`, `joins`, `starts`, `sources`, recipe, Look, `format`, `trim`; a Canvas's picture and loop). Free; the editor opens the same draft (CLI after 4.1.0) |
+| `kinetune drafts get SONG_ID [--type lyric-video\|canvas]` | The person's draft for a song, as the editor keeps it: Look, sources, recipe, every cut's clip and transition, and the exact `request` to quote (free) (CLI 4.2.0 or later) |
+| `kinetune drafts edit SONG_ID --input change.json` | Changes the draft as the editor would (`shuffle`, `replace`, `joins`, `starts`, `sources`, recipe, Look, `format`, `trim`; a Canvas's picture and loop). Free; the editor opens the same draft (CLI 4.2.0 or later) |
 | `kinetune drafts delete (--id … \| --all [--song-id …] [--type lyric-video\|canvas\|music-video])` | Deletes one draft or every one. Only when the user asks |
 | `kinetune videos share VIDEO_ID [--rights-confirmed] [--socials --credit-handle @name]` | Makes a delivered video public in the Community, its Look reusable by anyone. Only on the user's word; `--rights-confirmed` (a music video) and `--socials` only when they said so |
 | `kinetune videos unshare VIDEO_ID` | Makes it private again, its Look too |
