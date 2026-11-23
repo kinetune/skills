@@ -1,6 +1,6 @@
 {
   "name": "kinetune",
-  "version": "1.0.22",
+  "version": "1.0.23",
   "description": "Make AI music videos, lyric videos and Spotify Canvas loops from your songs with Kinetune: read the shot list, pick a Look, confirm, and get the finished video.",
   "author": {
     "name": "Kinetune",
@@ -30,6 +30,7 @@
       "Read and change the shot list first",
       "Make lyric videos in 9:16, 16:9 and 1:1",
       "Make Spotify Canvas loops",
+      "Preview a lyric video or Canvas before paying",
       "Confirms every video before making it",
       "Upload songs, lyrics and artist photos",
       "Browse and reuse Looks"
@@ -79,6 +80,12 @@
               "expected_behavior": "Creates the video with the same input plus the quote_id from the previous step, waits until it completes, and returns the download link."
             },
             {
+              "description": "Preview a lyric video before paying",
+              "prompt": "Show me what a lyric video of Barefoot in the Tide would look like with calmer clips, before I pay.",
+              "tools_triggered": "list_songs, get_video_draft, edit_video_draft",
+              "expected_behavior": "Opens the song's video draft, changes its clip sources or recipe to calmer ones, and shows the draft playing as a preview with its price; nothing is created or charged."
+            },
+            {
               "description": "Quote a Spotify Canvas from Stock clips",
               "prompt": "Quote a Spotify Canvas for Midnight Coffee from nature clips, as a seamless loop.",
               "tools_triggered": "list_songs, quote_canvas",
@@ -108,7 +115,7 @@
         }
       },
       "publication": {
-        "release_notes": "Spotify Canvas rebuilt: pick the picture (clips, the cover, a visualizer or one generated for the song), how it loops (drift, rebound or cuts) and its length, add effects, light and atmosphere, and save the look as a preset. Lyric videos take grade strength, effects and words behind the subject. Music video places now share one look, so the rooms of one house look like one house."
+        "release_notes": "See it before you pay: lyric videos and Canvases are built in your own editor draft and play as a preview in the chat, where you can shuffle clips, swap one for a similar clip and change the format; music video shot lists show as a storyboard. Spotify Canvas rebuilt: pick the picture (clips, the cover, a visualizer or one generated for the song), how it loops (drift, rebound or cuts) and its length, add effects, light and atmosphere, and save the look as a preset. Lyric videos take grade strength, effects and words behind the subject. Music video places now share one look, so the rooms of one house look like one house."
       }
     }
   }
