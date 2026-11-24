@@ -1,6 +1,6 @@
 ---
 name: kinetune
-description: Make lyric videos (9:16, 16:9, 1:1), Spotify Canvas loops, AI music videos and cover art from a user's songs with Kinetune, through its MCP tools or the `kinetune` CLI. Use when the user wants a lyric video, a Spotify Canvas, a music video, a visualizer or promo video for a song, cover art for a song, wants to set up an artist's character or kit (outfits, places, props), wants to upload or import a song to Kinetune, fix its lyrics or their timing, or correct what it says a song is about, browse Looks or footage clips, set up an artist page, check their credits, or mentions Kinetune.
+description: Make songs with AI music models, and lyric videos (9:16, 16:9, 1:1), Spotify Canvas loops, AI music videos and cover art from a user's songs with Kinetune, through its MCP tools or the `kinetune` CLI. Use when the user wants to create a song (from their lyrics, lyrics written for them, or an instrumental), set up an artist's voice, a lyric video, a Spotify Canvas, a music video, a visualizer or promo video for a song, cover art for a song, wants to set up an artist's character or kit (outfits, places, props), wants to upload or import a song to Kinetune, fix its lyrics or their timing, or correct what it says a song is about, browse Looks or footage clips, set up an artist page, check their credits, or mentions Kinetune.
 ---
 
 # Kinetune
@@ -10,6 +10,7 @@ Kinetune turns a song into release-ready video:
 - **Lyric videos**: word-synced lyrics in one of 63 lyric styles, over short clips cut on the beat (Kinetune's Stock footage or the user's own) or a visualizer that moves with the music, in 9:16 (vertical), 16:9 (wide) and 1:1 (square). No AI designs them.
 - **Spotify Canvas**: a 3–8 second vertical loop from clips (Stock or the user's own), the cover or a visualizer, or a picture generated for the song, uploaded by the artist in Spotify for Artists. See [Choosing a Canvas](#choosing-a-canvas).
 - **AI music videos**: the song's artist performs it, lip-synced, kept from their character, from 15 seconds to 10 minutes. See [Music videos](#music-videos).
+- **Songs**: Kinetune makes new songs for an artist with AI music models (Mureka, Lyria, Eleven Music…), from the user's lyrics, lyrics written for them, or none (an instrumental); each take is a new song of the artist, analysed like an upload and ready for every video. See [Create a song](#create-a-song).
 - **Cover art**: Kinetune's cover art director makes 1 to 4 covers for a song (3000×3000), each a different idea, with the title and artist name lettered in if the user wants. See [Cover art](#cover-art).
 
 Lyric videos use a **Look**, a complete reusable design. Reuse a saved Look, or let Kinetune pick one for the song, and change its lyric style, visual or picture.
@@ -166,6 +167,28 @@ Every cover a song has had, made or uploaded, stays on it until deleted; one is 
 - **Use one**: `use_cover` / `kinetune covers use SONG_ID COVER_ID`. The song keeps its cover until the user picks one; never put one in use on your own. A made cover's colours and typeface become the artist's look for their next covers.
 - **Delete one**: `delete_cover` / `kinetune covers delete SONG_ID COVER_ID`, for good. Ask first. Deleting the one in use leaves the song without a cover.
 - While a video of the song is being made, changing or deleting its cover answers 409 `song_busy`: try again once it's done.
+
+## Create a song
+
+A new song for an artist, made by an AI music model. Each take is a different song, added to the artist's songs and analysed like an upload, so every video can be made from it.
+
+- **What's offered**: `get_options` → `song.models`: each model, what it can do (`abilities`: `instrumental`, `gender`, `length`, `voice-clone`), its lengths and its price for one take (`credits_per_take`). `song.write_lyrics.credits` and `song.voice.credits` are the other prices. Use the model's `id`; don't guess.
+- **The lyrics**, one of three:
+  - the user's own (`lyrics.source` `mine`, sections in brackets like `[Chorus]` help the model);
+  - written from their idea: `write_song_lyrics` / `kinetune songs write-lyrics --artist-id … --idea "…" --credits N`, a few credits, after their go. It returns lyrics, a title and a style line: show them and let the user change anything before making the song;
+  - none: an instrumental (`lyrics.source` `none`, no voice).
+- **A style** in plain words: genre, mood, instruments, tempo ("French pop, warm synths, 104 BPM"). Never another artist's name. `get_artist_voice` suggests one from the artist's own songs (`style`).
+- **Whose voice**: `voice.use` `new` (a new voice; `gender` `female`, `male` or `any`) or `artist` (the artist's own Voice, only on a model with `voice-clone`). Most songs need no Voice: don't push one.
+- **Quote, tell, wait**: `quote_new_song` / `kinetune songs quote-new …` gives the credits for all the takes (`takes` 1 to 4, default 2). Tell the user, then `make_song` / `kinetune songs make --artist-id … --credits N` after their go. Follow it with `get_song_creation` / `kinetune songs creation CREATION_ID`: takes arrive one by one in a few minutes; each `done` take has its new `song`. A take that fails isn't charged. `list_song_creations` lists an artist's.
+- **Nothing is lost**: what the user was writing is kept per person and artist (`get_song_creation_draft`), every paid lyrics write included, until a song is made from it.
+
+### The artist's Voice
+
+Optional, set up once, so every song made for the artist can be sung in their voice. `get_artist_voice` / `kinetune artists voice ARTIST_ID` says whether there is one and what setting it up costs.
+
+- `set_artist_voice` / `kinetune artists set-voice ARTIST_ID …` from one of their songs (the lead vocal, 25 seconds where they sing alone), a take they liked, or a recording of the voice alone (15 to 30 seconds). Quote the credits and wait for the go. It's ready in about a minute; a new Voice replaces the one before.
+- Say whether it's **AI-made** or a **real person's** voice. A real voice needs that person's consent, given by them: they confirm it's their own voice or that they have the singer's written permission, and the singer says the given phrase in a recording. Never confirm consent for anyone.
+- `delete_artist_voice` / `kinetune artists forget-voice ARTIST_ID` forgets it (ask first). Songs already made stay.
 
 ## Music videos
 
