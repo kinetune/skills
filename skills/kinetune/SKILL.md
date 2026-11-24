@@ -175,7 +175,7 @@ A new song for an artist, made by an AI music model. Each take is a different so
 - **What's offered**: `get_options` → `song.models`: each model, what it can do (`abilities`: `instrumental`, `gender`, `length`, `voice-clone`), its lengths and its price for one take (`credits_per_take`). `song.write_lyrics.credits` and `song.voice.credits` are the other prices. Use the model's `id`; don't guess.
 - **The lyrics**, one of three:
   - the user's own (`lyrics.source` `mine`, sections in brackets like `[Chorus]` help the model);
-  - written from their idea: `write_song_lyrics` / `kinetune songs write-lyrics --artist-id … --idea "…" --credits N`, a few credits, after their go. It returns lyrics, a title and a style line: show them and let the user change anything before making the song;
+  - written from their idea: `write_song_lyrics` / `kinetune songs write-lyrics --artist-id … --idea "…" --credits N`, a few credits, after their go. It returns lyrics, a title, a style line and who should sing it (`gender`). With `pick` `{style: true, voice: true}` the director also chooses the style (use its line in place of the user's) and, for a new voice, female or male. Ask the user whether they want that, or keep their own style. Show everything and let the user change anything before making the song;
   - none: an instrumental (`lyrics.source` `none`, no voice).
 - **A style** in plain words: genre, mood, instruments, tempo ("French pop, warm synths, 104 BPM"). Never another artist's name. `get_artist_voice` suggests one from the artist's own songs (`style`).
 - **Whose voice**: `voice.use` `new` (a new voice; `gender` `female`, `male` or `any`) or `artist` (the artist's own Voice, only on a model with `voice-clone`). Most songs need no Voice: don't push one.
