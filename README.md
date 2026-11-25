@@ -1,3 +1,5 @@
+<a href="https://kinetune.com/developers?utm_source=github&utm_medium=readme&utm_campaign=skills"><img src="https://kinetune.com/og/home.jpg" alt="Kinetune: your song, every video. AI music videos, lyric videos and Spotify Canvas" width="100%"></a>
+
 # Kinetune for AI agents
 
 [![MCP Registry](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fregistry.modelcontextprotocol.io%2Fv0%2Fservers%2Fcom.kinetune%252Fkinetune%2Fversions%2Flatest&query=%24.server.version&label=MCP%20Registry&prefix=v&logo=modelcontextprotocol&color=black)](https://registry.modelcontextprotocol.io/v0/servers?search=com.kinetune/kinetune)
@@ -7,9 +9,22 @@
 [![Cursor Directory](https://img.shields.io/badge/Cursor_Directory-kinetune-black?logo=cursor)](https://cursor.directory/plugins/kinetune)
 [![mcpservers.org](https://img.shields.io/badge/mcpservers.org-Kinetune-black)](https://mcpservers.org/servers/kinetune-com-developers)
 
-[Kinetune](https://kinetune.com) makes songs with AI music models and turns a song into release-ready video: lyric videos with word-synced lyrics and audio-reactive visuals in 9:16, 16:9 and 1:1, AI music videos the artist performs, Spotify Canvas loops, and cover art made from the song.
+Give Claude, ChatGPT, Codex, Cursor or any MCP client a music studio. [Kinetune](https://kinetune.com/?utm_source=github&utm_medium=readme&utm_campaign=skills) makes everything a release needs from one song, and this repo teaches agents to use it:
 
-This repository teaches AI agents to use it. Ask in plain words, for example *"make a vertical lyric video for Midnight Drive"* or *"give my new single a Canvas"*. The agent finds the song, tells you exactly how many credits it costs, and makes the video only after you say yes.
+- **AI music videos**: the artist performs the song, lip-synced, from 15 seconds to 10 minutes (MiniMax H3 Max, Seedance)
+- **Lyric videos**: every word on the beat, in 63 lyric styles, over clips cut to the music or a visualizer, in 9:16, 16:9 and 1:1
+- **Spotify Canvas** loops, and **cover art** made from what the song is about
+- **Songs made with AI**: lyrics written for you or your own, Mureka, Lyria, Eleven Music or MiniMax, even in the artist's own voice
+- **Artist pages** at `kinetune.com/@you`, and songs brought in from the catalog
+
+Ask in plain words:
+
+- *"Make a vertical lyric video for Midnight Drive."*
+- *"Give my new single a Spotify Canvas, something calm and rainy."*
+- *"Write a song about a late drive home for Nova Lane and make two takes."*
+- *"Plan a music video for the chorus: her on a rooftop at night."*
+
+The agent finds the song, tells you exactly how many credits it costs, and makes it only after you say yes.
 
 ## Claude Code
 
@@ -30,7 +45,7 @@ npx skills add kinetune/skills
 
 You can also copy `skills/kinetune` into your agent's skills folder.
 
-The skill works through the MCP server when it is connected, or through the [`kinetune` CLI](https://www.npmjs.com/package/@kinetune/cli) otherwise:
+The skill works through the MCP server when it is connected, or through the [`kinetune` CLI](https://github.com/kinetune/cli) otherwise:
 
 ```
 npm install -g @kinetune/cli
@@ -56,9 +71,11 @@ Point any MCP client at `https://kinetune.com/mcp` (Streamable HTTP, OAuth sign-
 
 ## Links
 
-- [Developer docs](https://kinetune.com/developers): REST API, MCP server, CLI and n8n
+- [Developer docs](https://kinetune.com/developers?utm_source=github&utm_medium=readme&utm_campaign=skills): REST API, MCP server, CLI and n8n
 - [Full API reference for LLMs](https://kinetune.com/llms-full.txt)
-- [Pricing](https://kinetune.com/pricing): the same prices on the web and in the apps
+- [Pricing](https://kinetune.com/pricing?utm_source=github&utm_medium=readme&utm_campaign=skills): the same prices on the web and in the apps
+- [kinetune/cli](https://github.com/kinetune/cli): the `kinetune` command line, open source
+- [kinetune/n8n-nodes-kinetune](https://github.com/kinetune/n8n-nodes-kinetune): the n8n node
 - The Kinetune app for [iPhone](https://apps.apple.com/app/id6821154371) and [Android](https://play.google.com/store/apps/details?id=com.kinetune.app)
 - [Kinetune in ChatGPT](https://chatgpt.com/plugins/plugin_asdk_app_6ac8644fd31c8191a871ef900fb7cb41)
 - Support: support@kinetune.com
