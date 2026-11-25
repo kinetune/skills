@@ -1,7 +1,7 @@
 {
   "name": "kinetune",
-  "version": "1.0.25",
-  "description": "Make AI music videos, lyric videos and Spotify Canvas loops from your songs with Kinetune: read the shot list, pick a Look, confirm, and get the finished video.",
+  "version": "1.0.26",
+  "description": "Make AI music videos, lyric videos and Spotify Canvas loops from your songs with Kinetune: read the shot list, confirm, and get the finished video.",
   "author": {
     "name": "Kinetune",
     "email": "support@kinetune.com",
@@ -22,7 +22,7 @@
   "interface": {
     "displayName": "Kinetune",
     "shortDescription": "Music & lyric videos, Canvas",
-    "longDescription": "Kinetune makes every video a song needs: AI music videos, lyric videos and Spotify Canvas loops. Connect your Kinetune account and ask in plain words. For a music video, an AI director reads the song and writes a shot list you can read and change before anything is made; the artist then sings on camera, lip-synced, from their character. Lyric videos are timed to every word, in reusable Looks, and a Canvas loop is cut from Stock or the artist's own clips, the cover or a visualizer, or generated for the song, all in 9:16, 16:9 or 1:1. Before anything is made, Kinetune tells you exactly what it will create and waits for your go, then returns download links. You can also upload songs and lyrics, set up the artist's character and kit, and manage your Looks.",
+    "longDescription": "Kinetune makes every video a song needs: AI music videos, lyric videos and Spotify Canvas loops. Connect your Kinetune account and ask in plain words. For a music video, an AI director reads the song and writes a shot list you can read and change before anything is made; the artist then sings on camera, lip-synced, from their character. Lyric videos are timed to every word and built from the song, in any of 63 lyric styles, and a Canvas loop is cut from Stock or the artist's own clips, the cover or a visualizer, or generated for the song, all in 9:16, 16:9 or 1:1. Before anything is made, Kinetune tells you exactly what it will create and waits for your go, then returns download links. You can also upload songs and lyrics, set up the artist's character and kit, and make new songs for an artist with AI.",
     "developerName": "Prismosoft",
     "category": "Creativity",
     "capabilities": [
@@ -33,7 +33,7 @@
       "Preview a lyric video or Canvas before paying",
       "Confirms every video before making it",
       "Upload songs, lyrics and artist photos",
-      "Browse and reuse Looks"
+      "Make songs with AI music models"
     ],
     "websiteURL": "https://kinetune.com",
     "supportURL": "https://kinetune.com/developers",
@@ -62,16 +62,16 @@
               "expected_behavior": "Returns the organization name and the available credits; nothing is created or charged."
             },
             {
-              "description": "Browse Official Looks in one category",
-              "prompt": "Show me official release Looks on Kinetune.",
-              "tools_triggered": "list_looks",
-              "expected_behavior": "Lists Official Looks in the release category with their names, descriptions and preview images."
+              "description": "See the lyric video Kinetune picks for a song",
+              "prompt": "What lyric video would Kinetune make for Barefoot in the Tide?",
+              "tools_triggered": "list_songs, get_song_draft",
+              "expected_behavior": "Finds the song and shows the lyric style and clips picture Kinetune picks from it, free and without AI; nothing is created or charged."
             },
             {
               "description": "Quote a lyric video without creating it",
-              "prompt": "Find my song Barefoot in the Tide and tell me what a vertical lyric video costs with the Mint Monolith Debut Look.",
-              "tools_triggered": "list_songs, list_looks, quote_lyric_video",
-              "expected_behavior": "Finds the analyzed song and the Look, returns the exact credits from the quote, and asks before creating anything."
+              "prompt": "Find my song Barefoot in the Tide and tell me what a vertical lyric video costs in the Slab lyric style.",
+              "tools_triggered": "list_songs, get_options, quote_lyric_video",
+              "expected_behavior": "Finds the analyzed song and the Slab lyric style, returns the exact credits from the quote, and asks before creating anything."
             },
             {
               "description": "Create the quoted lyric video after agreement",
@@ -115,7 +115,7 @@
         }
       },
       "publication": {
-        "release_notes": "See it before you pay: lyric videos and Canvases are built in your own editor draft and play as a preview in the chat, where you can shuffle clips, swap one for a similar clip and change the format; music video shot lists show as a storyboard. Spotify Canvas rebuilt: pick the picture (clips, the cover, a visualizer or one generated for the song), how it loops (drift, rebound or cuts) and its length, add effects, light and atmosphere, and save the look as a preset. Lyric videos take grade strength, effects and words behind the subject. Music video places now share one look, so the rooms of one house look like one house."
+        "release_notes": "Make songs with AI: Create a song writes or takes the lyrics (Write for me drafts them from an idea), picks a style and makes 1 to 4 takes, each a new song of the artist ready for every video; a song can be sung in the artist's own voice, set up once with their consent. Lyric videos are now built from the song: Kinetune picks the lyric style, the clips and their cut from the song itself, and you change any part. Saved lyric video Looks are gone."
       }
     }
   }
