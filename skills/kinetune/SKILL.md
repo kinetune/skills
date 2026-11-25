@@ -1,6 +1,6 @@
 ---
 name: kinetune
-description: Make lyric videos (9:16, 16:9, 1:1), Spotify Canvas loops, AI music videos and cover art from a user's songs with Kinetune, through its MCP tools or the `kinetune` CLI. Use when the user wants a lyric video, a Spotify Canvas, a music video, a visualizer or promo video for a song, cover art for a song, wants to set up an artist's character or kit (outfits, places, props), wants to upload or import a song to Kinetune, fix its lyrics or their timing, or correct what it says a song is about, browse Looks or footage clips, set up an artist page, check their credits, or mentions Kinetune.
+description: Make songs with AI music models, and lyric videos (9:16, 16:9, 1:1), Spotify Canvas loops, AI music videos and cover art from a user's songs with Kinetune, through its MCP tools or the `kinetune` CLI. Use when the user wants to create a song (from their lyrics, lyrics written for them, or an instrumental), set up an artist's voice, a lyric video, a Spotify Canvas, a music video, a visualizer or promo video for a song, cover art for a song, wants to set up an artist's character or kit (outfits, places, props), wants to upload or import a song to Kinetune, fix its lyrics or their timing, or correct what it says a song is about, browse footage clips, set up an artist page, check their credits, or mentions Kinetune.
 ---
 
 # Kinetune
@@ -10,9 +10,10 @@ Kinetune turns a song into release-ready video:
 - **Lyric videos**: word-synced lyrics in one of 63 lyric styles, over short clips cut on the beat (Kinetune's Stock footage or the user's own) or a visualizer that moves with the music, in 9:16 (vertical), 16:9 (wide) and 1:1 (square). No AI designs them.
 - **Spotify Canvas**: a 3–8 second vertical loop from clips (Stock or the user's own), the cover or a visualizer, or a picture generated for the song, uploaded by the artist in Spotify for Artists. See [Choosing a Canvas](#choosing-a-canvas).
 - **AI music videos**: the song's artist performs it, lip-synced, kept from their character, from 15 seconds to 10 minutes. See [Music videos](#music-videos).
+- **Songs**: Kinetune makes new songs for an artist with AI music models (Mureka, Lyria, Eleven Music…), from the user's lyrics, lyrics written for them, or none (an instrumental); each take is a new song of the artist, analysed like an upload and ready for every video. See [Create a song](#create-a-song).
 - **Cover art**: Kinetune's cover art director makes 1 to 4 covers for a song (3000×3000), each a different idea, with the title and artist name lettered in if the user wants. See [Cover art](#cover-art).
 
-Lyric videos use a **Look**, a complete reusable design. Reuse a saved Look, or let Kinetune pick one for the song, and change its lyric style, visual or picture.
+Every lyric video is built from its song: Kinetune picks a lyric style and a clips picture for it by rules (`get_song_draft`), and the user changes any part. The lyric style brings the colours and type.
 
 ## The one rule: quote, tell, wait for the go
 
@@ -30,7 +31,6 @@ When Kinetune is installed as a plugin or connector (ChatGPT, Claude, Cursor, VS
 
 Apps that draw cards (ChatGPT, Claude and others with MCP Apps) show Kinetune's results as cards, so show rather than describe:
 
-- `show_looks` when the person wants to see or pick Looks; each plays as the real render. Pass `song_id` to preview them with their song. Their pick arrives as a message naming the Look.
 - `show_songs` when they want to see or pick a song.
 - `get_video_draft` and `edit_video_draft` draw the lyric video or Canvas **preview**: the person's draft plays with the song (a Canvas loops silently), with its cut as a strip of clips, Shuffle, the format and the price, before anything is paid. Tapping a clip in the strip looks for others like it. See [The draft](#the-draft-build-it-preview-it-adjust-it).
 - `show_music_video_plan` draws a shot list as a **storyboard**: every shot with its picture so far, the cast's outfits, what drawing the rest costs, and **Make it**.
@@ -87,11 +87,11 @@ Once a song is analysed, Kinetune writes its **brief**: what it is about, as eve
 
 Each person has one draft per song and kind (lyric video, Canvas): the same draft the studio's editor keeps. Build the video in it rather than writing a request by hand. What you change, the person sees in the editor, and what they did in the editor is where you carry on.
 
-1. **Open it**: `get_video_draft` / `kinetune drafts get SONG_ID [--type canvas]`. Without a draft yet, it answers the one the song's rules make (`id` and `editor_url` null until the first change). It holds the Look, lyric style, picture, sources, recipe, format, section, and `cuts`: every clip of the cut in order (cut 1, 2, …; its time, `clip_id`, source, `poster_url` and the transition into it). `request` is exactly what it makes. Free, no AI.
+1. **Open it**: `get_video_draft` / `kinetune drafts get SONG_ID [--type canvas]`. Without a draft yet, it answers the one the song's rules make (`id` and `editor_url` null until the first change). It holds the lyric style, picture, sources, recipe, format, section, and `cuts`: every clip of the cut in order (cut 1, 2, …; its time, `clip_id`, source, `poster_url` and the transition into it). `request` is exactly what it makes. Free, no AI.
 2. **Show it**: in apps with cards, the draft plays as a preview with the song. Elsewhere, describe the cut briefly, or give `editor_url` to open it in the editor.
 3. **Change it from their words**: `edit_video_draft` / `kinetune drafts edit SONG_ID --input change.json`. Send only what changes:
    - Clips: `sources` (Stock moods, their folders: their own uploads and the clips cut from their links land there, see [Footage](#footage-stock-and-the-users-own-clips)), `shuffle` (other clips on the same cuts), `replace` `[{cut, clip_id}]` (one clip at a cut, e.g. one from `similar_clips`), `joins` `[{cut, transition}]` (the transition into a cut, with optional `seconds`, `direction`, `intensity`), `starts` `[{cut, at}]` (where in its clip a cut starts).
-   - Look: `look_id`, `lyric_style`, `behind`, `visual`. Recipe: `density`, `transitions` `{style, amount, feel}`, `grade`, `grade_amount`, `effects`, `shape`, `fill`, `speed`.
+   - Style: `lyric_style`, `behind`, `visual`. Recipe: `density`, `transitions` `{style, amount, feel}`, `grade`, `grade_amount`, `effects`, `shape`, `fill`, `speed`.
    - `format` (`9:16` or `16:9`), `trim` (`null` for the whole song), `display`.
    - A Canvas (`type: canvas`): `picture` (`clips`, `cover` or `visualizer`), `loop`, `seconds`, `cut`, `motion`, `visual`, `light`, `atmosphere`, `frame`, `effects`.
    - A change to sources, density, shape, speed, seed, format or section plans a new cut and drops clips put in by hand: say so when the person had picked some.
@@ -105,38 +105,36 @@ The draft is theirs: the last change wins, as between two editor tabs. A generat
 
 Read `get_options` / `kinetune options` for the current lyric styles, visuals, Stock collections, transitions, grades, effects, headlines and credit prices. Don't guess ids. No AI designs a lyric video: it costs one flat price (`get_options` → `credits.base`) plus its render, which follows the length and the formats. Only AI clips made for it cost more (`credits.ai_clips`).
 
-- **Look** (`look`):
-  - Left out, Kinetune picks a Look and a clips picture for the song by rules, at once: `get_song_draft` / `kinetune songs draft SONG_ID` shows which (`look_id`, `background`, `edit.seed`), so you can show it and change any part. A video made without `look.id` is exactly that.
-  - `{"id":"look_…"}` reuses a saved Look. Browse with `list_looks` (`scope`: `official`, `community`, `mine`; filter by `lyric_style` or `category`, or `q`; pass the song's `artist_id` to leave out Looks that show another artist).
-  - Change any part beside it: `lyric_style`, `visual` and `background`. `get_options` → `lyric_styles` lists the 63 styles, each with its name and what it does (among them Slab, the line packed into a solid block of heavy caps, and Stamp, one heavy word at a time).
+- **How it looks** (`look`):
+  - Left out, Kinetune picks everything from the song by rules, at once: `get_song_draft` / `kinetune songs draft SONG_ID` shows what (`lyric_style`, `behind`, `background`, `edit.seed`), so you can show it and change any part. The artist's last lyric video brings its lyric style, `behind` and folders back. A video made without `look` is exactly that draft.
+  - Change any part: `lyric_style`, `behind`, `visual` and `background`; what you leave out stays as the song's draft. `get_options` → `lyric_styles` lists the 63 styles, each with its name and what it does (among them Slab, the line packed into a solid block of heavy caps, and Stamp, one heavy word at a time).
   - **Words behind the subject**: `behind: true` puts big words behind the person or figure in each clip. Only styles marked `behind: true` in `get_options` → `lyric_styles` take it. Clips with a clear subject (`subject_clear`) work best.
-- **The picture** (`look.background`; left out, the Look keeps its own):
-  - **Clips**: `{"kind":"clips","sources":{"moods":["nature"],"folders":["folder_…"]}}`, short clips cut on the beat. `moods` are Kinetune's Stock collections, free for everyone (`get_options` → `clip_moods`, under Feelings or Places & textures); `folders` are the user's own footage (see [Footage](#footage-stock-and-the-users-own-clips)); `looks` are Look ids whose own picture plays as clips (every Official and Community Look is listed among the Feelings; `get_look_clips` shows a Look's clips). How many sources one video may draw from is the plan's (`get_account` → `limits.clip_sources`; more answers 402 `plan_required`). Optional: `density` (`one`, `fewer`, `even`, `more`: how often it cuts), `transitions` (`style` `auto`, `impact`, `flash`, `smooth` or `none`; `amount` and `feel`, 0–1), `grade` (`clean`, `vivid`, `warm`, `noir`…) with `grade_amount` (its strength, 0–1), `effects` (up to three from `get_options` → `effects`, such as `film-grain` or `light-leak`, each `{id, amount}`), `shape` (`both`, `tall`, `wide`), `fill` (`cover`, `blur`, `bars`: how a clip of the other shape fills the frame) and `speed` (0.5 to 2).
+- **The picture** (`look.background`; left out, the song's draft):
+  - **Clips**: `{"kind":"clips","sources":{"moods":["nature"],"folders":["folder_…"]}}`, short clips cut on the beat. `moods` are Kinetune's Stock collections, free for everyone (`get_options` → `clip_moods`, under Feelings, Places & textures, or Seasons & holidays); `folders` are the user's own footage (see [Footage](#footage-stock-and-the-users-own-clips)). How many sources one video may draw from is the plan's (`get_account` → `limits.clip_sources`; more answers 402 `plan_required`). Optional: `density` (`one`, `fewer`, `even`, `more`: how often it cuts), `transitions` (`style` `auto`, `impact`, `flash`, `smooth` or `none`; `amount` and `feel`, 0–1), `grade` (`clean`, `vivid`, `warm`, `noir`…) with `grade_amount` (its strength, 0–1), `effects` (up to three from `get_options` → `effects`, such as `film-grain` or `light-leak`, each `{id, amount}`), `shape` (`both`, `tall`, `wide`), `fill` (`cover`, `blur`, `bars`: how a clip of the other shape fills the frame) and `speed` (0.5 to 2).
   - **Visualizer**: `{"kind":"visualizer"}`, no picture: the visual that moves with the music fills the frame behind the words.
 - **`edit`** (a clips picture): `{"seed":7}` draws its clips (the same seed, the same video; another seed, other clips on the same cuts). `clips` instead lists them exactly as a studio previewed them (`list_clips` gives the pool), each clip's join set on its own if wanted (`transition_seconds`, `direction`, `intensity`).
-- **The visual** (the audio-reactive layer, 3D or Liquid): left out, the Look's own. When the user wants a particular one, `look.visual`: `{"preset":"<key>"}` for the whole song, plus `"sections":{"chorus":"<key>"}` for another in some sections, or `{"preset":"none"}` for no visual. Keys come from `get_options` / `kinetune options` (`visualizers`: each visual's `key`, `family`, `name`, `energy`, and for Liquid its `moods`, `colors` and a `preview_url` still). Over a picture, a visual stays light so the picture shows.
+- **The visual** (the audio-reactive layer, 3D or Liquid): left out, the song's draft. When the user wants a particular one, `look.visual`: `{"preset":"<key>"}` for the whole song, plus `"sections":{"chorus":"<key>"}` for another in some sections, or `{"preset":"none"}` for no visual. Keys come from `get_options` / `kinetune options` (`visualizers`: each visual's `key`, `family`, `name`, `energy`, and for Liquid its `moods`, `colors` and a `preview_url` still). Over a picture, a visual stays light so the picture shows.
 - **`variations`** (1–4, with a clips picture): several videos, each drawing other clips.
 - **`aspect_ratios`**: any of `"9:16"`, `"16:9"`, `"1:1"`, each its own file. Each extra format adds credits.
 - **`display`**: which elements show (`title`, `artist`, `cover`, `lyrics`, `badges`, `headline`) and their sizes; `censor` hides swear words; `title_card` says when a kinetic lyric style shows its big title card instead of the small label (`ends`, `breaks` or `label`; `get_options` → `title_cards`).
 - **`trim`**: render only part of the song (at least 8 seconds). Take it from the song's **parts** (`get_song_analysis` / `kinetune songs analysis SONG_ID`): each section (Verse 1, Chorus 1…), clips of about 15 seconds cut between the lines of long ones, and each verse with its chorus, every one starting and ending between lines so no word is cut. Pass a part's `start` and `end` as `start_seconds` and `end_seconds`; `default_part` is the one the app starts on (the sung part nearest 15 seconds, the cheapest clip). Suggest a part by its label and first words ("Chorus 1, “Didn't I tell you…”, 15 s") rather than raw times.
 
-Ask the user only what matters to them, usually the mood of the footage, the formats, and whether to reuse a Look. Default the rest.
+Ask the user only what matters to them, usually the mood of the footage, the lyric style and the formats. Default the rest.
 
 ### Footage: Stock and the user's own clips
 
 - **Look inside a Stock collection**: `browse_clip_mood` / `kinetune clips browse MOOD_ID [--shape tall|wide] [--energy calm|medium|bold] [--sort best|newest|length]`, a page at a time (`next_offset`). Each clip has its shape, length, energy, colour, a poster, a light preview, its `loop_score` (how well it loops as a Canvas drift) and its credit. Free.
 - **More like this**: `similar_clips` / `kinetune clips similar CLIP_ID` finds up to 48 clips from Stock and the user's folders that look and move like one clip, each with its `source`. Free, no AI.
-- **Their own footage** (My footage): `list_clip_folders`, `create_clip_folder` (`kinetune clip-folders create --name "On stage"`), then `import_clips` / `kinetune clip-folders import FOLDER_ID` with one of `--url` (a YouTube, TikTok or Instagram link, up to 20 minutes), `--file-url` (a file sent with `create_upload`) or `--stock-id` (a stock video from `search_stock` with `kind` video). Kinetune cuts it into clips of 1–5 seconds at every scene change, in the background; `get_clip_folder` shows them arriving; a failed import can be tried again (`retry_clip_import` / `kinetune clips retry-import IMPORT_ID`) or its tile removed (`dismiss_clip_import`). Free with a plan; it counts toward storage. Only footage the user has the rights to. `move_clips`, `delete_clip`, `rename_clip_folder` and `delete_clip_folder` tidy them (ask before deleting).
+- **Their own footage** (My footage): `list_clip_folders`, `create_clip_folder` (`kinetune clip-folders create --name "On stage"`), then `import_clips` / `kinetune clip-folders import FOLDER_ID` with one of `--url` (a YouTube, TikTok or Instagram link, up to 20 minutes), `--file-url` (a file sent with `create_upload`) or `--stock-id` (a stock video from `search_stock` with `kind` video). Kinetune cuts it into clips of 1–5 seconds at every scene change, in the background; `get_clip_folder` shows them arriving; a failed import can be tried again (`retry_clip_import` / `kinetune clips retry-import IMPORT_ID`) or its tile removed (`dismiss_clip_import`). Free with a plan; it counts toward storage. Only footage the user has the rights to. Each clip is analysed once, free, for good: when a video is made with it (or when `analyze_clips` asks, for a preview you plan yourself). Words then keep clear of faces, and photo clips move in 3D. With `look.behind: true` (lyric styles `get_options` marks `behind`, big words; the **Behind** style has it on) big words go behind the person or figure in clips with a clear subject (`subject_clear`), and Kinetune puts those clips under the sung lines. `move_clips`, `delete_clip`, `rename_clip_folder` and `delete_clip_folder` tidy them (ask before deleting).
 - **New clips from a few words**: `generate_clips` / `kinetune clips generate --prompt "…" --kind image|video [--shape tall|wide] [--count N]`. Or from the song: `--song-id … --from song|cover`, optionally `--with artist` (their character) or a cast character's kit id. For video: `--model` (one of `get_options` → `video_models.clips`, each with its real name and price per clip; left out, the first), `--style calm|cinematic|dreamy|intense` and `--loop` (starts and ends on the same frame, for a Canvas drift). Without `credits` it only prices them, and `from: song` also gives three `ideas` from the song's brief (`best` first): offer them and send the chosen one's `prompt`. Tell the user the price, then send the same with `--credits N` after their go. They land in the AI folder, each charged once it is a clip (a failed one is given back; `retry_clip_import` tries it again). The only paid part of a lyric video's or Canvas's picture; needs a plan.
 - **Previewing a cut yourself** (only when you plan `edit.clips` and show a preview): `analyze_clips` / `kinetune clips analyze --clip-ids … [--behind]` finds the subject and faces of clips not analysed yet, so the words stay clear of them. It is free, capped per day for the user's own clips. A video analyses its clips anyway, so you never need it just to make one.
-- **Keep the result as their Look**: `save_look` / `kinetune looks save --name "…" --from-id LOOK_ID [--lyric-style …] [--background '{…}']` saves a private Look from a saved one with their changes; then use its id.
 
 ## Choosing a Canvas
 
 A Canvas is a `picture`, a `loop` and a length. Spotify plays it silently on its own loop, out of time with the song, so no part of the song is chosen. It is always 1080×1920.
 
 - **`picture`**, what it shows:
-  - `{"kind":"clips"}` (default): Stock moods (`get_options` → `clip_moods`), the workspace's folders and Looks' own clips in `sources: {moods, folders, looks}`. Left out, the song's own moods (`get_song_draft` with `type: canvas` shows them). `stock_ids` takes up to 3 Pexels videos from `search_stock` (`kinetune stock search --kind video --q "…" --seconds 8`); credit their creator wherever you show them. Optional: `grade` and `grade_amount`, `fill` (`blur`, `cover`, `bars` or `colour` with `fill_colour`), `speed` (0.25–2), `cut` (`hard` or `smooth`, for cuts), `crossfade` (a drift's blend, 0.25–2 s), `camera` (`still`, `push` or `pull`, for cuts and rebound), `fade` (cuts: through black at the loop point), `framing` (`{x, y, zoom}`), `rotate` (0, 90, 180, 270) and `steady` (a stabilised copy of each clip).
+  - `{"kind":"clips"}` (default): Stock moods (`get_options` → `clip_moods`) and the workspace's folders in `sources: {moods, folders}`. Left out, the song's own moods (`get_song_draft` with `type: canvas` shows them). `stock_ids` takes up to 3 Pexels videos from `search_stock` (`kinetune stock search --kind video --q "…" --seconds 8`); credit their creator wherever you show them. Optional: `grade` and `grade_amount`, `fill` (`blur`, `cover`, `bars` or `colour` with `fill_colour`), `speed` (0.25–2), `cut` (`hard` or `smooth`, for cuts), `crossfade` (a drift's blend, 0.25–2 s), `camera` (`still`, `push` or `pull`, for cuts and rebound), `fade` (cuts: through black at the loop point), `framing` (`{x, y, zoom}`), `rotate` (0, 90, 180, 270) and `steady` (a stabilised copy of each clip).
   - `{"kind":"cover","motion":"push"|"drift"|"still"}`: the song's cover, moving.
   - `{"kind":"visualizer","preset":…}`: a calm or medium visual (`get_options` → `canvas.visuals`; left out, one is picked).
   - `{"kind":"generate","from":"song"|"cover","with":"none"|"artist"|<kit id>,"video":"standard"|"high"|null,"model":…,"style":…}`: a picture made for it in the same order, also kept in the AI folder. `video: null` makes a still, `prompt` is optional, `model` is one of `get_options` → `video_models.canvas`, and `style` is `calm` (default), `cinematic`, `dreamy` or `intense`. It costs much more than the others (`get_options` → `credits.canvas.generate.video_from` is the "from" price), so say so with the quote. `with: "artist"` needs their character (`list_characters`, `start_character`).
@@ -151,7 +149,7 @@ Ask what it should show and suggest one loop; default the rest. From clips, the 
 
 ## Cover art
 
-Every cover a song has had, made or uploaded, stays on it until deleted; one is **in use** (videos, Looks, Canvases and plans made from then on use it; videos already made keep theirs).
+Every cover a song has had, made or uploaded, stays on it until deleted; one is **in use** (videos, Canvases and plans made from then on use it; videos already made keep theirs).
 
 - **See them**: `list_song_covers` / `kinetune covers list SONG_ID`: each cover (`in_use`, `download_url` at full size, a made one's idea), rounds being made, `can` (`plan`: making covers needs a paid plan; `ready`: the song is analysed; `artist`: the artist has a character, so they can be on a cover), `price.counts` (credits for 1 to 4) and `price.redraw`.
 - **Their own file**: `set_song_cover` / `kinetune songs set-cover SONG_ID --cover-art ./cover.jpg` adds one or replaces the one in use (a square JPEG or PNG, 1000–6000 px). The one before stays on the song. No plan needed.
@@ -166,6 +164,28 @@ Every cover a song has had, made or uploaded, stays on it until deleted; one is 
 - **Use one**: `use_cover` / `kinetune covers use SONG_ID COVER_ID`. The song keeps its cover until the user picks one; never put one in use on your own. A made cover's colours and typeface become the artist's look for their next covers.
 - **Delete one**: `delete_cover` / `kinetune covers delete SONG_ID COVER_ID`, for good. Ask first. Deleting the one in use leaves the song without a cover.
 - While a video of the song is being made, changing or deleting its cover answers 409 `song_busy`: try again once it's done.
+
+## Create a song
+
+A new song for an artist, made by an AI music model. Each take is a different song, added to the artist's songs and analysed like an upload, so every video can be made from it.
+
+- **What's offered**: `get_options` → `song.models`: each model, what it can do (`abilities`: `instrumental`, `gender`, `length`, `voice-clone`), its lengths and its price for one take (`credits_per_take`). `song.write_lyrics.credits` and `song.voice.credits` are the other prices. Use the model's `id`; don't guess.
+- **The lyrics**, one of three:
+  - the user's own (`lyrics.source` `mine`, sections in brackets like `[Chorus]` help the model);
+  - written from their idea: `write_song_lyrics` / `kinetune songs write-lyrics --artist-id … --idea "…" --credits N`, a few credits, after their go. It returns lyrics, a title, a style line and who should sing it (`gender`). With `pick` `{style: true, voice: true}` the director also chooses the style (use its line in place of the user's) and, for a new voice, female or male. Ask the user whether they want that, or keep their own style. Show everything and let the user change anything before making the song;
+  - none: an instrumental (`lyrics.source` `none`, no voice).
+- **A style** in plain words: genre, mood, instruments, tempo ("French pop, warm synths, 104 BPM"). Never another artist's name. `get_artist_voice` suggests one from the artist's own songs (`style`).
+- **Whose voice**: `voice.use` `new` (a new voice; `gender` `female`, `male` or `any`) or `artist` (the artist's own Voice, only on a model with `voice-clone`). Most songs need no Voice: don't push one.
+- **Quote, tell, wait**: `quote_new_song` / `kinetune songs quote-new …` gives the credits for all the takes (`takes` 1 to 4, default 2). Tell the user, then `make_song` / `kinetune songs make --artist-id … --credits N` after their go. Follow it with `get_song_creation` / `kinetune songs creation CREATION_ID`: takes arrive one by one in a few minutes; each `done` take has its new `song`. A take that fails isn't charged. `list_song_creations` lists an artist's.
+- **Nothing is lost**: what the user was writing is kept per person and artist (`get_song_creation_draft`), every paid lyrics write included, until a song is made from it.
+
+### The artist's Voice
+
+Optional, set up once, so every song made for the artist can be sung in their voice. `get_artist_voice` / `kinetune artists voice ARTIST_ID` says whether there is one and what setting it up costs.
+
+- `set_artist_voice` / `kinetune artists set-voice ARTIST_ID …` from one of their songs (the lead vocal, 25 seconds where they sing alone), a take they liked, or a recording of the voice alone (15 to 30 seconds). Quote the credits and wait for the go. It's ready in about a minute; a new Voice replaces the one before.
+- Say whether it's **AI-made** or a **real person's** voice. A real voice needs that person's consent, given by them: they confirm it's their own voice or that they have the singer's written permission, and the singer says the given phrase in a recording. Never confirm consent for anyone.
+- `delete_artist_voice` / `kinetune artists forget-voice ARTIST_ID` forgets it (ask first). Songs already made stay.
 
 ## Music videos
 
@@ -205,7 +225,7 @@ It is planned before it is made. Writing the shot list costs credits, and so doe
    - **What it costs before rewriting**: `price_music_video_revision` / `kinetune videos revision-prices VIDEO_ID`: each shot's credits, plus `base_credits` paid once per revision.
    - **Another outro, or none**: `create_music_video` with `refinish` `{video_id}` and the new `outro` (or none) finishes it again without making any shot again; only setup and delivery are charged.
    - The original video never changes: each revision is a new video.
-8. **Keep its direction as a Look** (free): `save_music_video_look` / `kinetune videos save-look VIDEO_ID` saves a delivered music video's direction (kind, style, edit, treatment, AI-drawn places and props, never the people) as a reusable Look, private until the video is made public. Use it on any song with `look_id` in `plan_music_video` or `quote_music_video`. `list_music_video_looks` / `kinetune looks music-video [--scope all|community|mine]` lists the workspace's own and the public ones; `get_music_video_look` shows one (with its video and story while that video is public); `delete_music_video_look` removes one of theirs.
+8. **Keep its direction as a concept** (free): `save_music_video_look` / `kinetune videos save-look VIDEO_ID` saves a delivered music video's direction (kind, style, edit, treatment, AI-drawn places and props, never the people) as a reusable music video Look, private until the video is made public. Use it on any song with `look_id` in `plan_music_video` or `quote_music_video`. `list_music_video_looks` / `kinetune concepts list [--scope all|community|mine]` lists the workspace's own and the public ones; `get_music_video_look` / `kinetune concepts get LOOK_ID` shows one (with its video and story while that video is public); `delete_music_video_look` / `kinetune concepts delete LOOK_ID` removes one of theirs.
 
 ### The artist kit and @mentions
 
@@ -222,11 +242,10 @@ A piece mentioned in `direction` ("Nina in the @blue-set on the @rooftop") is us
 
 Words in (parentheses) in the song's lyrics are the backing vocals': they are sung off camera, and the artist doesn't lip-sync them. To mark them, set the song's lyrics with the parentheses (see [The song's own lyrics](#the-songs-own-lyrics)).
 
-## Artists, songs and Looks
+## Artists, songs and drafts
 
 - **Artist picture** (only a display picture, never shown to a model): `set_artist_image` / `kinetune artists image set ARTIST_ID --image ./photo.jpg [--crop '{"x":0.1,"y":0,"size":0.8}']` (JPEG, PNG or WebP, at least 512 px), `remove_artist_image` to go back to their initial. Works without a plan.
 - `get_artist`, `rename_artist`, `archive_artist` (an artist with no songs); `rename_song`, `archive_song` (its videos stay); `list_videos` (by `song_id` or `type`).
-- Lyric video Looks the workspace made: `get_look`, `rename_look`, `set_look_visibility` (`public` or `private`), `delete_look` (videos made with it stay).
 - **Drafts**: a video started in the studio (web or app) or built here (`edit_video_draft`) and not made yet is a draft, one per song and kind, kept 30 days. `list_video_drafts` / `kinetune drafts list` lists them; `delete_video_drafts` / `kinetune drafts delete --id …` deletes one, or `--all` every one (narrowed by `--song-id` or `--type`). Only when the user asks: tell them how many first. Videos already made are never touched.
 - Ask before archiving or deleting anything.
 
@@ -240,12 +259,12 @@ An Artist or Label workspace gives each artist a page at kinetune.com/@handle (t
 
 ## Making a video public
 
-Only when the user asks, in their own words: `share_video` (`kinetune videos share VIDEO_ID`) puts a delivered video in the app's Community, Kinetune may feature it on kinetune.com, and its Look becomes reusable by anyone (a music video's concept: kind, look, edit, places and props, never the people in it). Ask before calling it and never make a video public on your own. Its two choices are the user's alone, so never set them yourself or carry them over from another video:
+Only when the user asks, in their own words: `share_video` (`kinetune videos share VIDEO_ID`) puts a delivered video in the app's Community, Kinetune may feature it on kinetune.com, and a music video's Look becomes reusable by anyone (its concept: kind, visual style, edit, places and props, never the people in it). Ask before calling it and never make a video public on your own. Its two choices are the user's alone, so never set them yourself or carry them over from another video:
 
 - `rights_confirmed: true` (`--rights-confirmed`, required for a music video): they have the right to show the artist and everyone in it publicly.
 - `socials: true` with `credit_handle` (`--socials --credit-handle @name`): Kinetune may also post it on its socials, crediting them.
 
-`unshare_video` (`kinetune videos unshare VIDEO_ID`) makes it private again, its Look too. `get_video` shows `sharing` (null while private).
+`unshare_video` (`kinetune videos unshare VIDEO_ID`) makes it private again, a music video's Look too. `get_video` shows `sharing` (null while private).
 
 ## When they wish Kinetune did something
 
@@ -254,7 +273,7 @@ If the user asks for something Kinetune can't do yet ("I wish it could…"), loo
 ## When something goes wrong
 
 - **A failed video returns its credits.**
-- **`retry_video`** makes a video again. That is a new charge, so ask first, but it reuses the Look and media so nothing already made is paid for twice.
+- **`retry_video`** makes a video again. That is a new charge, so ask first. A lyric video keeps its lyric style, picture and visual and draws its clips again; a Canvas or a music video is directed afresh.
 - **`cancel_video`** stops a queued or processing video and releases its credits.
 - **"plan it again"**: a music video plan whose photo or kit piece was deleted, or made with choices no longer offered, can't be quoted. Write the shot list again (`plan_music_video`).
 - **Not enough credits**: tell the user their balance and the quote. Plans and credit packs are at https://kinetune.com/pricing, at the same prices in the Kinetune app for iPhone and Android. Don't shrink the request without asking.

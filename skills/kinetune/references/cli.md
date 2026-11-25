@@ -88,7 +88,7 @@ Conventions:
 | `kinetune songs set-words SONG_ID --input words.json` | Every word with its `start`, `end` and `line`, fixed by hand (`{"words":[…]}`, as `songs analysis` gives them) and saved exactly so |
 | `kinetune songs transcription-price SONG_ID` | What listening to the song again costs |
 | `kinetune songs transcribe SONG_ID --credits N [--language fr]` | Listens to it again with Kinetune's current transcription model. Ask first |
-| `kinetune songs draft SONG_ID` | The Look and clips picture Kinetune picks for the song, at once (what a lyric video without a Look id gets) |
+| `kinetune songs draft SONG_ID` | The lyric style and clips picture Kinetune picks from the song, at once (what a lyric video without `--look` gets) |
 | `kinetune songs rename SONG_ID --title "…"` | Renames a song |
 | `kinetune songs archive SONG_ID` | Removes a song. Its videos stay |
 | `kinetune songs set-cover SONG_ID --cover-art ./cover.jpg` | Adds a cover or replaces the one in use; the one before stays on the song |
@@ -108,19 +108,13 @@ Conventions:
 | `kinetune covers use SONG_ID COVER_ID` | Puts a cover in use. Only on the user's pick |
 | `kinetune covers delete SONG_ID COVER_ID` | Deletes a cover for good. Ask first |
 
-## Looks
+## Music video concepts
 
 | Command | What it does |
 |---|---|
-| `kinetune looks list [--scope official\|community\|mine] [--category …] [--q …] [--sort newest\|popular]` | Browses Looks |
-| `kinetune looks get LOOK_ID` | One Look with its preview images |
-| `kinetune looks rename LOOK_ID --name "…"` | Renames one of your Looks |
-| `kinetune looks visibility LOOK_ID --visibility public\|private` | Makes one of your Looks public or private |
-| `kinetune looks delete LOOK_ID` | Removes one of your Looks. Videos made with it stay |
-| `kinetune looks save --name "…" --from-id LOOK_ID [--lyric-style …] [--visual '{…}'] [--background '{…}']` | A private Look of your own from a saved one, with your changes |
-| `kinetune looks clips LOOK_ID` | The clips a clips Look cuts its picture from |
-| `kinetune looks music-video [--scope all\|community\|mine]` | Music video Looks: public ones and the workspace's own. Pass one's id as `--look-id` when planning or quoting |
-| `kinetune looks music-video-get LOOK_ID`, `kinetune looks music-video-delete LOOK_ID` | One music video Look, or removes one of yours |
+| `kinetune concepts list [--scope all\|community\|mine] [--q …] [--sort newest\|popular]` | Music video Looks: public ones and the workspace's own. Pass one's id as `--look-id` when planning or quoting |
+| `kinetune concepts get LOOK_ID` | One music video Look, with its video and story while that video is public |
+| `kinetune concepts delete LOOK_ID` | Removes one of yours |
 
 ## Footage
 
@@ -144,7 +138,7 @@ Conventions:
 
 | Command | What it does |
 |---|---|
-| `kinetune quote lyric-video --song-id … [--look '{"id":"look_…","background":{"kind":"clips","sources":{"moods":["nature"]}}}'] [--aspect-ratios 9:16 16:9] [--variations N] [--display '{…}'] [--trim '{…}'] [--edit '{"seed":7}']` | Exact credits for a lyric video (`--look` left out: the one `songs draft` shows) |
+| `kinetune quote lyric-video --song-id … [--look '{"lyric_style":"…","background":{"kind":"clips","sources":{"moods":["nature"]}}}'] [--aspect-ratios 9:16 16:9] [--variations N] [--display '{…}'] [--trim '{…}'] [--edit '{"seed":7}']` | Exact credits for a lyric video (what `--look` leaves out is the song's draft, as `songs draft` shows it) |
 | `kinetune quote canvas --song-id … [--picture '{"kind":"clips","sources":{"moods":["nature"]}}'] [--loop drift\|rebound\|cuts] [--seconds 8] [--edit '{…}'] [--light '{"preset":"…"}'] [--atmosphere dust] [--effects '[{"id":"film-grain","amount":0.5}]'] [--variations N]` | Exact credits for a Canvas: a picture (`clips`, `cover`, `visualizer` or `generate`), a loop and a length |
 | `kinetune create lyric-video …same flags… --quote-id …` | Makes the lyric video the quote priced |
 | `kinetune create canvas …same flags… --quote-id …` | Makes the Canvas the quote priced |
@@ -205,18 +199,18 @@ Conventions:
 | `kinetune videos revise VIDEO_ID --shot N --note "…"` | Rewrites one shot of a delivered music video, free. Pick N from `videos get`: the shot whose `start_seconds`–`end_seconds` holds the time the user named (an outro card comes after the last shot). Confirm its summary and seconds with them first, and use their words as the note. Then quote with `--plan-id` (only the shots made again are charged) and create after their go. A shot may hold several camera cuts (Seedance), and the whole shot is made again |
 | `kinetune videos revise VIDEO_ID --shots '[{"shot":2,"note":"…"},{"shot":5,"note":"…"}]'` | Several shots at once, each from its own note: one new version |
 | `kinetune videos revision-prices VIDEO_ID` | What revising each shot costs, before rewriting anything |
-| `kinetune videos save-look VIDEO_ID` | Saves a delivered music video's direction as a reusable Look (free; never the people in it) |
+| `kinetune videos save-look VIDEO_ID` | Saves a delivered music video's direction as a reusable music video Look (free; never the people in it); see `concepts` |
 | `kinetune videos wait VIDEO_ID [--timeout 1800]` | Waits until completed, failed or cancelled, showing its progress or why it waits (its place in line, or busy machines) |
 | `kinetune videos download VIDEO_ID [--out DIR] [--format 9:16] [--web]` | Downloads the files, one per format. `--web` gets the 720p copies |
 | `kinetune videos cancel VIDEO_ID` | Stops a queued or processing video and releases its credits |
-| `kinetune videos retry VIDEO_ID` | Makes a finished, failed or cancelled video again. This is a new charge, though its Look and media are reused |
+| `kinetune videos retry VIDEO_ID` | Makes a finished, failed or cancelled video again. This is a new charge. A lyric video keeps its lyric style, picture and visual and draws its clips again; a Canvas or a music video is directed afresh |
 | `kinetune videos delete VIDEO_ID` | Deletes a finished video and its files |
 | `kinetune drafts list` | Videos started in the studio and not made yet, one per song and kind (kept 30 days) |
-| `kinetune drafts get SONG_ID [--type lyric-video\|canvas]` | The person's draft for a song, as the editor keeps it: Look, sources, recipe, every cut's clip and transition, and the exact `request` to quote (free) (CLI 4.2.0 or later) |
-| `kinetune drafts edit SONG_ID --input change.json` | Changes the draft as the editor would (`shuffle`, `replace`, `joins`, `starts`, `sources`, recipe, Look, `format`, `trim`; a Canvas's picture and loop). Free; the editor opens the same draft (CLI 4.2.0 or later) |
+| `kinetune drafts get SONG_ID [--type lyric-video\|canvas]` | The person's draft for a song, as the editor keeps it: lyric style, sources, recipe, every cut's clip and transition, and the exact `request` to quote (free) (CLI 4.2.0 or later) |
+| `kinetune drafts edit SONG_ID --input change.json` | Changes the draft as the editor would (`shuffle`, `replace`, `joins`, `starts`, `sources`, recipe, lyric style, `format`, `trim`; a Canvas's picture and loop). Free; the editor opens the same draft (CLI 4.2.0 or later) |
 | `kinetune drafts delete (--id … \| --all [--song-id …] [--type lyric-video\|canvas\|music-video])` | Deletes one draft or every one. Only when the user asks |
-| `kinetune videos share VIDEO_ID [--rights-confirmed] [--socials --credit-handle @name]` | Makes a delivered video public in the Community, its Look reusable by anyone. Only on the user's word; `--rights-confirmed` (a music video) and `--socials` only when they said so |
-| `kinetune videos unshare VIDEO_ID` | Makes it private again, its Look too |
+| `kinetune videos share VIDEO_ID [--rights-confirmed] [--socials --credit-handle @name]` | Makes a delivered video public in the Community, a music video's Look reusable by anyone. Only on the user's word; `--rights-confirmed` (a music video) and `--socials` only when they said so |
+| `kinetune videos unshare VIDEO_ID` | Makes it private again, a music video's Look too |
 
 ## Ideas
 
